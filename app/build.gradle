@@ -7,19 +7,17 @@ plugins {
     id 'io.objectbox'
 }
 
-
-import com.build.config.BuildVersion
-import com.build.config.BuildConfig
+import com.build.config.BuildVers
+import com.build.config.Configs
 
 android {
-    compileSdk BuildVersion.compileSdkVersion
-//    buildToolsVersion BuildVersion.buildToolsVersion
+    compileSdk BuildVers.compile_sdk
 
     defaultConfig {
         applicationId "com.lear.chatdemo"
 
-        minSdk BuildVersion.minSdkVersion
-        targetSdk BuildVersion.targetSdkVersion
+        minSdk BuildVers.min_sdk
+        targetSdk BuildVers.target_sdk
         versionCode 1
         versionName "1.0"
 
@@ -63,11 +61,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation BuildConfig.core_ktx
-    implementation BuildConfig.app_compat
-    implementation BuildConfig.material
-    implementation BuildConfig.constraint_layout
-    implementation BuildConfig.recyclerview
+    implementation Configs.core_ktx
+    implementation Configs.app_compat
+    implementation Configs.material
+    implementation Configs.constraint_layout
+    implementation Configs.recyclerview
 
     implementation 'com.pusher:pusher-java-client:1.8.0'
     implementation 'com.pusher:push-notifications-android:1.8.0'

@@ -9,7 +9,8 @@
 //}
 
 buildscript {
-    apply from: 'versions.gradle'
+    apply from: 'paths.gradle'
+    apply from: 'signs.gradle'
 
     repositories {
         google()
@@ -17,10 +18,10 @@ buildscript {
     }
 
     dependencies {
-        classpath deps.android_gradle_plugin
-        classpath deps.kotlin.plugin
-        classpath deps.gms
-        classpath deps.objectbox
+        classpath paths.gradle_tools
+        classpath paths.kotlin_gradle_plugin
+        classpath paths.gms
+        classpath paths.object_box
     }
 }
 
