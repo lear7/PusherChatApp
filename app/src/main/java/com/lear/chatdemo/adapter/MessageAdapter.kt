@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.lear.chatdemo.model.Message
+import com.lear.chatdemo.utils.DateUtils
 
 
 private const val VIEW_TYPE_MY_MESSAGE = 1

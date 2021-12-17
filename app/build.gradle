@@ -67,18 +67,33 @@ dependencies {
     implementation Configs.constraint_layout
     implementation Configs.recyclerview
 
-    implementation 'com.pusher:pusher-java-client:1.8.0'
-    implementation 'com.pusher:push-notifications-android:1.8.0'
+    // pusher
+    implementation Configs.pusher
+    implementation Configs.pusher_notification
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+    // retrofit
+    implementation Configs.retrofit
+    implementation Configs.retrofit_moshi
+
+    // Jetpack
+    implementation Configs.viewmodel
+    implementation Configs.lifedata
+    implementation Configs.fragment_ktx
+
+    // Coroutines
+    implementation Configs.coroutines
+    implementation Configs.coroutines_core
+
+    // hilt
+    implementation Configs.hilt
+    kapt Configs.hilt_kapt
 
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:29.0.2')
-
+//    implementation Configs.firebase
+    implementation platform(Configs.firebase)
     // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-iid'
+    implementation Configs.firebase_message
+    implementation Configs.firebase_analytics
+    implementation Configs.firebase_iid
 }

@@ -1,9 +1,10 @@
-package com.lear.chatdemo
+package com.lear.chatdemo.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.lear.chatdemo.App
 import com.lear.chatdemo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

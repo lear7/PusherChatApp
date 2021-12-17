@@ -1,4 +1,4 @@
-package com.lear.chatdemo
+package com.lear.chatdemo.model
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

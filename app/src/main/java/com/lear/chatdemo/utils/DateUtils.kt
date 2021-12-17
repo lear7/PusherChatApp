@@ -1,4 +1,4 @@
-package com.lear.chatdemo
+package com.lear.chatdemo.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

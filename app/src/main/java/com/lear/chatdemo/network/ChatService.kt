@@ -1,5 +1,6 @@
-package com.lear.chatdemo
+package com.lear.chatdemo.network
 
+import com.lear.chatdemo.App
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
