@@ -1,0 +1,35 @@
+apply plugin: 'kotlin'
+apply plugin: 'java-gradle-plugin'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        // 因为使用的 Kotlin 需要需要添加 Kotlin 插件
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+}
+
+gradlePlugin {
+    plugins {
+        version {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = 'com.build.config'
+            // 实现这个插件的类的路径
+            implementationClass = 'com.build.config.Plugins'
+        }
+    }
+}
