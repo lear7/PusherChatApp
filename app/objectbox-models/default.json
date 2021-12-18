@@ -5,43 +5,78 @@
   "entities": [
     {
       "id": "1:2106223685459288184",
-      "lastPropertyId": "4:9096442573160894071",
+      "lastPropertyId": "12:956104008315892561",
       "name": "Message",
       "properties": [
-        {
-          "id": "1:7306503964187388796",
-          "name": "user",
-          "type": 9
-        },
-        {
-          "id": "2:3782261222056902120",
-          "name": "message",
-          "type": 9
-        },
-        {
-          "id": "3:3330041589773081470",
-          "name": "time",
-          "type": 6,
-          "flags": 1
-        },
         {
           "id": "4:9096442573160894071",
           "name": "channelName",
           "type": 9
+        },
+        {
+          "id": "5:8294659248686465006",
+          "name": "to",
+          "type": 9
+        },
+        {
+          "id": "6:3476638338794140283",
+          "name": "from",
+          "type": 9
+        },
+        {
+          "id": "7:1985141841181013363",
+          "name": "msgType",
+          "type": 5
+        },
+        {
+          "id": "8:5287346065565647084",
+          "name": "chatType",
+          "type": 5
+        },
+        {
+          "id": "9:247847602218055090",
+          "name": "eventName",
+          "type": 9
+        },
+        {
+          "id": "10:7257596158216511123",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "11:6049098619977186535",
+          "name": "extras",
+          "type": 9
+        },
+        {
+          "id": "12:956104008315892561",
+          "name": "createTime",
+          "type": 6,
+          "flags": 1
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:2106223685459288184",
+  "lastEntityId": "2:2915800621921660004",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    2915800621921660004
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    7306503964187388796,
+    3782261222056902120,
+    3330041589773081470,
+    7236010009273437970,
+    7332006694967339149,
+    4027880936867463873,
+    9098051338184704326
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

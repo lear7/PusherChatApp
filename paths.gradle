@@ -21,4 +21,5 @@ paths.gradle_tools = 'com.android.tools.build:gradle:4.2.2'
 paths.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
 paths.gms = 'com.google.gms:google-services:4.3.10'
 paths.object_box = 'io.objectbox:objectbox-gradle-plugin:3.0.1'
+paths.hilt = 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
 ext.paths = paths

@@ -14,7 +14,7 @@ object Vers {
     const val coroutines = "1.4.2"
     const val firebase = "29.0.2"
     const val fragment = "1.2.5"
-    const val hilt = "2.28-alpha"
+    const val hilt = "2.40.5"
     const val lifecycle = "2.3.0-rc01"
     const val material = "1.4.0"
     const val recyclerview = "1.2.0"

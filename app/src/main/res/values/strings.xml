@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChatDemo</string>
+    <string name="message_count">Count: %d</string>
 </resources>

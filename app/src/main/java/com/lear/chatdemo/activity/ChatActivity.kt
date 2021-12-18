@@ -31,7 +31,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +38,8 @@ import retrofit2.Response
 class ChatActivity : AppCompatActivity() {
 
     private val TAG = "ChatActivity"
+    private val MAX_CHANNEL = 100
+    private val MSG_PERIOD = 100L
 
     private lateinit var binding: ActivityChatBinding
     private lateinit var adapter: MessageAdapter
@@ -54,18 +55,16 @@ class ChatActivity : AppCompatActivity() {
 
     private var userName = "${App.user}"
 
-    // private var channelName = "private-$userName"
     private lateinit var channelList: ArrayList<String>
     private val eventName = "new_message"
 
-    // private var channel: Channel? = null
     private var socketId = ""
 
-    fun doInBatch(process: (channel: String) -> Unit) {
+    fun doInBatch(time: Long = 10, process: (channel: String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             channelList.forEach {
                 process(it)
-                delay(30)
+                delay(time)
             }
         }
     }
@@ -74,20 +73,21 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        channelList = ArrayList<String>()
-        for (i in 0..99) {
-            channelList.add("private-$userName-$i")
-        }
+        initChannelList()
 
         binding.messageList.layoutManager = LinearLayoutManager(this)
         adapter = MessageAdapter(this)
         binding.messageList.adapter = adapter
+        binding.labelCount.text = getString(R.string.message_count, 0)
+        binding.labelCount.setOnClickListener {
+            adapter.clearMessage()
+            binding.labelCount.text = getString(R.string.message_count, 0)
+        }
 
         binding.btnSend.setOnClickListener {
             val text = binding.txtMessage.text.toString()
             if (text.isNotEmpty()) {
-                doInBatch {
+                doInBatch(MSG_PERIOD) {
                     sendMessage(it, text)
                 }
             } else {
@@ -108,16 +108,30 @@ class ChatActivity : AppCompatActivity() {
         setupBeams()
     }
 
-    private fun sendMessage(channelName: String, text: String) {
-        val message = Message(
-            channelName,
-            "$userName($channelName)",
-            text,
-            System.currentTimeMillis()
-        )
+    private fun initChannelList() {
+        channelList = ArrayList<String>()
+        for (i in 0..(MAX_CHANNEL - 1)) {
+            channelList.add("private-$userName-$i")
+        }
+    }
 
+    private fun createMessage(channelName: String, content: String): Message {
+        return Message(
+            "lihua",
+            userName,
+            channelName = channelName,
+            eventName = eventName,
+            content = content,
+            createTime = System.currentTimeMillis()
+        )
+    }
+
+    private fun sendMessage(channelName: String, text: String) {
         val body: RequestBody =
-            RequestBody.create(MediaType.parse("application/json"), Gson().toJson(message))
+            RequestBody.create(
+                MediaType.parse("application/json"),
+                Gson().toJson(createMessage(channelName, text))
+            )
         val call = ChatService.create().postMessage(body)
 
         call.enqueue(object : Callback<Void> {
@@ -209,7 +223,7 @@ class ChatActivity : AppCompatActivity() {
                         eventName: String?,
                         data: String?
                     ) {
-                        Log.d(TAG, "onMessage received: ${channelName}")
+                        Log.d(TAG, "onMessage received: ${data}")
                         showMessage(data)
                     }
 
@@ -240,17 +254,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun showMessage(data: String?) {
-        val jsonObject = JSONObject(data)
-
-        val message = Message(
-            jsonObject["channelName"].toString(),
-            jsonObject["user"].toString(),
-            jsonObject["message"].toString(),
-            jsonObject["time"].toString().toLong()
-        )
-
+        val message = Gson().fromJson(data, Message::class.java)
         runOnUiThread {
             adapter.addMessage(message)
+            binding.labelCount.text = getString(R.string.message_count, adapter.itemCount)
             // scroll the RecyclerView to the last added element
             binding.messageList.scrollToPosition(adapter.itemCount - 1);
         }

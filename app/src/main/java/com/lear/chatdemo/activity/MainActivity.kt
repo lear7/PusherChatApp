@@ -6,8 +6,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lear.chatdemo.App
 import com.lear.chatdemo.databinding.ActivityMainBinding
+import com.lear.chatdemo.di.Truck
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var truck: Truck
 
     private lateinit var binding: ActivityMainBinding
 
@@ -16,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        truck.deliver()
 
         binding.btnLogin.setOnClickListener {
             if (binding.username.text.isNotEmpty()) {

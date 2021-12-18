@@ -16,6 +16,11 @@ private const val VIEW_TYPE_OTHER_MESSAGE = 2
 class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHolder>() {
     private val messages: ArrayList<Message> = ArrayList()
 
+    fun clearMessage() {
+        messages.clear()
+        notifyDataSetChanged()
+    }
+
     fun addMessage(message: Message) {
         messages.add(message)
         notifyDataSetChanged()
@@ -28,7 +33,7 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
     override fun getItemViewType(position: Int): Int {
         val message = messages.get(position)
 
-        return if (App.user == message.user) {
+        return if (App.user == message.to) {
             VIEW_TYPE_MY_MESSAGE
         } else {
             VIEW_TYPE_OTHER_MESSAGE
@@ -59,8 +64,8 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
 
 
         override fun bind(message: Message) {
-            messageText.text = message.message
-            timeText.text = DateUtils.fromMillisToTimeString(message.time)
+            messageText.text = message.content
+            timeText.text = DateUtils.fromMillisToTimeString(message.createTime)
         }
     }
 
@@ -70,9 +75,9 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
         private var timeText: TextView = view.findViewById(R.id.txtOtherMessageTime)
 
         override fun bind(message: Message) {
-            messageText.text = message.message
-            userText.text = message.user
-            timeText.text = DateUtils.fromMillisToTimeString(message.time)
+            messageText.text = message.content
+            userText.text = "${message.from}(${message.channelName})"
+            timeText.text = DateUtils.fromMillisToTimeString(message.createTime)
         }
     }
 }

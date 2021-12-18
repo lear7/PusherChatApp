@@ -4,6 +4,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.build.config'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
     id 'io.objectbox'
 }
 
