@@ -9,8 +9,7 @@
 //}
 
 buildscript {
-    apply from: 'paths.gradle'
-    apply from: 'signs.gradle'
+    apply from: 'versions.gradle'
 
     repositories {
         google()
@@ -18,11 +17,11 @@ buildscript {
     }
 
     dependencies {
-        classpath paths.gradle_tools
-        classpath paths.kotlin_gradle_plugin
-        classpath paths.gms
-        classpath paths.object_box
-        classpath paths.hilt
+        classpath buildPaths.gradle_tools
+        classpath buildPaths.kotlin_gradle_plugin
+        classpath buildPaths.gms
+        classpath buildPaths.object_box
+        classpath buildPaths.hilt
     }
 }
 

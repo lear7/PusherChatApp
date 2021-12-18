@@ -1,11 +1,5 @@
 package com.build.config
 
-object BuildVers {
-    const val compile_sdk = 31
-    const val min_sdk = 21
-    const val target_sdk = 31
-}
-
 object Vers {
     const val app_compat = "1.3.0"
     const val cardview = "1.0.0"
@@ -17,13 +11,14 @@ object Vers {
     const val hilt = "2.40.5"
     const val lifecycle = "2.3.0-rc01"
     const val material = "1.4.0"
+    const val mvvm_hilt = "1.0.0-alpha03"
     const val recyclerview = "1.2.0"
     const val retrofit = "2.4.0"
     const val pusher = "1.8.0"
     const val swipe_refreshlayout = "1.1.0"
 }
 
-object Configs {
+object Deps {
     const val app_compat = "androidx.appcompat:appcompat:${Vers.app_compat}"
     const val core_ktx = "androidx.core:core-ktx:${Vers.core_ktx}"
 
@@ -58,6 +53,10 @@ object Configs {
     // hilt
     const val hilt = "com.google.dagger:hilt-android:${Vers.hilt}"
     const val hilt_kapt = "com.google.dagger:hilt-android-compiler:${Vers.hilt}"
+
+    const val mvvm_hilt = "androidx.hilt:hilt-lifecycle-viewmodel:${Vers.mvvm_hilt}"
+    const val mvvm_hilt_kapt = "androidx.hilt:hilt-compiler:${Vers.mvvm_hilt}"
+
 
     // Import the BoM for the Firebase platform
     const val firebase = "com.google.firebase:firebase-bom:${Vers.firebase}"

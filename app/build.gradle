@@ -1,25 +1,25 @@
 plugins {
+    id 'com.build.config'
     id 'com.android.application'
-    id 'kotlin-android'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
-    id 'com.build.config'
+    id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'io.objectbox'
 }
 
-import com.build.config.BuildVers
-import com.build.config.Configs
+import com.build.config.Deps
 
 android {
-    compileSdk BuildVers.compile_sdk
+    compileSdk 31
+    buildToolsVersion '31.0.0'
 
     defaultConfig {
         applicationId "com.lear.chatdemo"
 
-        minSdk BuildVers.min_sdk
-        targetSdk BuildVers.target_sdk
+        minSdkVersion buildVers.min_sdk
+        targetSdkVersion buildVers.target_sdk
         versionCode 1
         versionName "1.0"
 
@@ -28,10 +28,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(signs.keystorePath)
-            storePassword signs.keystorePassword
-            keyAlias signs.alias
-            keyPassword signs.aliasPassword
+            storeFile file(buildSign.keystorePath)
+            storePassword buildSign.keystorePassword
+            keyAlias buildSign.alias
+            keyPassword buildSign.aliasPassword
         }
     }
 
@@ -58,44 +58,50 @@ android {
     buildFeatures {
         viewBinding true
     }
+//    kapt {
+//        generateStubs = false
+//    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation Configs.core_ktx
-    implementation Configs.app_compat
-    implementation Configs.material
-    implementation Configs.constraint_layout
-    implementation Configs.recyclerview
+    implementation Deps.core_ktx
+    implementation Deps.app_compat
+    implementation Deps.material
+    implementation Deps.constraint_layout
+    implementation Deps.recyclerview
 
     // pusher
-    implementation Configs.pusher
-    implementation Configs.pusher_notification
+    implementation Deps.pusher
+    implementation Deps.pusher_notification
 
     // retrofit
-    implementation Configs.retrofit
-    implementation Configs.retrofit_moshi
+    implementation Deps.retrofit
+    implementation Deps.retrofit_moshi
 
     // Jetpack
-    implementation Configs.viewmodel
-    implementation Configs.lifedata
-    implementation Configs.fragment_ktx
+    implementation Deps.viewmodel
+    implementation Deps.lifedata
+    implementation Deps.fragment_ktx
 
     // Coroutines
-    implementation Configs.coroutines
-    implementation Configs.coroutines_core
+    implementation Deps.coroutines
+    implementation Deps.coroutines_core
 
     // hilt
-    implementation Configs.hilt
-    kapt Configs.hilt_kapt
+    implementation Deps.hilt
+    kapt Deps.hilt_kapt
+    // mvvm hilt
+    implementation Deps.mvvm_hilt
+    kapt Deps.mvvm_hilt_kapt
 
     // Import the BoM for the Firebase platform
-//    implementation Configs.firebase
-    implementation platform(Configs.firebase)
+//    implementation Deps.firebase
+    implementation platform(Deps.firebase)
     // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation Configs.firebase_message
-    implementation Configs.firebase_analytics
-    implementation Configs.firebase_iid
+    implementation Deps.firebase_message
+    implementation Deps.firebase_analytics
+    implementation Deps.firebase_iid
 }

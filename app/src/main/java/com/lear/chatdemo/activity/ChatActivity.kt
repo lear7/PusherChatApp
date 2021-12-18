@@ -34,12 +34,16 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
 
-    private val TAG = "ChatActivity"
-    private val MAX_CHANNEL = 100
+    private val MAX_CHANNEL = App.count
     private val MSG_PERIOD = 100L
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private lateinit var binding: ActivityChatBinding
     private lateinit var adapter: MessageAdapter
@@ -138,7 +142,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 resetInput()
                 if (!response.isSuccessful) {
-                    Log.e(TAG, response.code().toString());
+                    Log.e(App.TAG, response.code().toString());
                     Toast.makeText(
                         applicationContext,
                         "Response failed:${response.message()}",
@@ -149,7 +153,7 @@ class ChatActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 resetInput()
-                Log.e(TAG, t.toString());
+                Log.e(App.TAG, t.toString());
                 Toast.makeText(
                     applicationContext,
                     "Send failed:${t.localizedMessage}",
@@ -191,12 +195,12 @@ class ChatActivity : AppCompatActivity() {
         pusher?.let {
             it.connect(object : ConnectionEventListener {
                 override fun onConnectionStateChange(change: ConnectionStateChange?) {
-                    Log.d(TAG, "onConnectionStateChange: $change")
+                    Log.d(App.TAG, "onConnectionStateChange: $change")
                     change?.let {
                         when (change.currentState) {
                             ConnectionState.CONNECTED -> {
                                 socketId = pusher?.connection?.socketId ?: ""
-                                Log.d(TAG, "CONNECTED socketId: $socketId")
+                                Log.d(App.TAG, "CONNECTED socketId: $socketId")
                                 next()
                             }
                             else -> {
@@ -207,7 +211,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onError(message: String?, code: String?, e: Exception?) {
-                    Log.d(TAG, "onError: $message, code: $code, error: ${e?.localizedMessage}")
+                    Log.d(App.TAG, "onError: $message, code: $code, error: ${e?.localizedMessage}")
                 }
             })
         }
@@ -223,23 +227,23 @@ class ChatActivity : AppCompatActivity() {
                         eventName: String?,
                         data: String?
                     ) {
-                        Log.d(TAG, "onMessage received: ${data}")
+                        Log.d(App.TAG, "onMessage received: ${data}")
                         showMessage(data)
                     }
 
                     override fun onSubscriptionSucceeded(channelName: String?) {
-                        Log.d(TAG, "onSubscriptionSucceeded: ${channelName}")
+                        Log.d(App.TAG, "onSubscriptionSucceeded: ${channelName}")
                     }
 
                     override fun onAuthenticationFailure(
                         message: String?,
                         e: java.lang.Exception?
                     ) {
-                        Log.d(TAG, "onAuthenticationFailure: ${e?.localizedMessage}")
+                        Log.d(App.TAG, "onAuthenticationFailure: ${e?.localizedMessage}")
                     }
                 })
 
-                Log.d(TAG, "channel $channel bound.")
+                Log.d(App.TAG, "channel $channel bound.")
             }
         } ?: setupPusher()
     }

@@ -2,7 +2,7 @@ apply plugin: 'kotlin'
 apply plugin: 'java-gradle-plugin'
 
 buildscript {
-    apply from: '../paths.gradle'
+    apply from: '../versions.gradle'
 
     repositories {
         google()
@@ -11,7 +11,7 @@ buildscript {
 
     dependencies {
         // 因为使用的 Kotlin 需要需要添加 Kotlin 插件
-        classpath paths.kotlin_gradle_plugin
+        classpath buildPaths.kotlin_gradle_plugin
     }
 }
 
