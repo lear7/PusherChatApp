@@ -14,10 +14,12 @@ import com.lear.chatdemo.App
 import com.lear.chatdemo.MessageAdapter
 import com.lear.chatdemo.R
 import com.lear.chatdemo.databinding.ActivityChatBinding
+import com.lear.chatdemo.db.ObjectBox
 import com.lear.chatdemo.model.Message
 import com.lear.chatdemo.network.ChatService
 import com.pusher.client.Pusher
 import com.pusher.client.PusherOptions
+import com.pusher.client.channel.Channel
 import com.pusher.client.channel.PrivateChannelEventListener
 import com.pusher.client.connection.ConnectionEventListener
 import com.pusher.client.connection.ConnectionState
@@ -45,24 +47,29 @@ class ChatActivity : AppCompatActivity() {
     @Inject
     lateinit var retrofit: Retrofit
 
+    private var userName = "${App.user}"
+
     private lateinit var binding: ActivityChatBinding
     private lateinit var adapter: MessageAdapter
+
+    private val messageBox = ObjectBox.store.boxFor(Message::class.java)
 
     private var pusher: Pusher? = null
 
     private val instanceId =
         if (App.isRemote) "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9" else "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9"
-    private val pusherAppKey = if (App.isRemote) "1072c1cf4f5d3dda5a51" else "b60a9a22230f313794df"
-    private val pusherAppCluster = if (App.isRemote) "sa1" else "ap1"
     private val endPoint =
-        if (App.isRemote) "http://192.168.10.40:8082/pusher/auth" else "http://192.168.6.217:8080/auth"
-
-    private var userName = "${App.user}"
+        if (App.isRemote) "http://192.168.10.54:8082/pusher/auth" else "http://192.168.6.217:8080/auth"
 
     private lateinit var channelList: ArrayList<String>
-    private val eventName = "new_message"
 
+    private val eventName = "new_message"
     private var socketId = ""
+
+    private val serverAp1 =
+        ServerInfo("1316846", "b60a9a22230f313794df", "03d0454ce0a082c90a12", "ap1")
+    private val serverEU =
+        ServerInfo("1320253", "c6b43b2f27a3660a01da", "cd670a1502e8c3fb614f", "eu")
 
     fun doInBatch(time: Long = 10, process: (channel: String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -73,25 +80,23 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    private fun readHistory() {
+        adapter.setMessage(ArrayList(messageBox.all))
+        setMessageCount()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initChannelList()
-
-        binding.messageList.layoutManager = LinearLayoutManager(this)
-        adapter = MessageAdapter(this)
-        binding.messageList.adapter = adapter
-        binding.labelCount.text = getString(R.string.message_count, 0)
-        binding.labelCount.setOnClickListener {
-            adapter.clearMessage()
-            binding.labelCount.text = getString(R.string.message_count, 0)
-        }
+        settingAdapter()
+        readHistory()
 
         binding.btnSend.setOnClickListener {
             val text = binding.txtMessage.text.toString()
             if (text.isNotEmpty()) {
-                doInBatch(MSG_PERIOD) {
+                doInBatch {
                     sendMessage(it, text)
                 }
             } else {
@@ -112,11 +117,29 @@ class ChatActivity : AppCompatActivity() {
         setupBeams()
     }
 
+    private fun settingAdapter() {
+        binding.messageList.layoutManager = LinearLayoutManager(this)
+        adapter = MessageAdapter(this)
+        binding.messageList.adapter = adapter
+        binding.labelCount.setOnClickListener {
+            adapter.clearMessage()
+            messageBox.removeAll()
+            setMessageCount()
+        }
+        setMessageCount()
+    }
+
+    private fun setMessageCount() {
+        binding.labelCount.text = getString(R.string.message_count, adapter.itemCount)
+
+    }
+
     private fun initChannelList() {
-        channelList = ArrayList<String>()
-        for (i in 0..(MAX_CHANNEL - 1)) {
+        channelList = ArrayList()
+        for (i in 0 until if (App.inBatch) MAX_CHANNEL else 1) {
             channelList.add("private-$userName-$i")
         }
+
     }
 
     private fun createMessage(channelName: String, content: String): Message {
@@ -185,18 +208,29 @@ class ChatActivity : AppCompatActivity() {
         )
     }
 
+    private fun getServerInfo(): ServerInfo {
+        if (App.cluster.equals("ap1")) {
+            return serverAp1
+        } else {
+            return serverEU
+        }
+    }
+
     private fun setupPusher(next: () -> Unit = {}) {
         val authorizer = HttpAuthorizer(endPoint)
         val options = PusherOptions()
         options.authorizer = authorizer
-        options.setCluster(pusherAppCluster)
+        options.setCluster(getServerInfo().cluster)
 
-        pusher = Pusher(pusherAppKey, options)
+        pusher = Pusher(getServerInfo().key, options)
         pusher?.let {
             it.connect(object : ConnectionEventListener {
                 override fun onConnectionStateChange(change: ConnectionStateChange?) {
                     Log.d(App.TAG, "onConnectionStateChange: $change")
                     change?.let {
+                        runOnUiThread {
+                            binding.labelStatus.text = it.currentState.toString()
+                        }
                         when (change.currentState) {
                             ConnectionState.CONNECTED -> {
                                 socketId = pusher?.connection?.socketId ?: ""
@@ -219,7 +253,13 @@ class ChatActivity : AppCompatActivity() {
 
     private fun goOnline(channelName: String) {
         pusher?.let {
-            var channel = it.subscribePrivate(channelName)
+            var channel: Channel? = null
+            try {
+                channel = it.subscribePrivate(channelName)
+
+            } catch (e: Exception) {
+                Log.e(App.TAG, "channelName subscribed.")
+            }
             channel?.let { it1 ->
                 it1.bind(eventName, object : PrivateChannelEventListener {
                     override fun onEvent(
@@ -253,7 +293,6 @@ class ChatActivity : AppCompatActivity() {
             doInBatch {
                 it1.unsubscribe(it)
             }
-            //channel = null
         } ?: setupPusher()
     }
 
@@ -261,8 +300,8 @@ class ChatActivity : AppCompatActivity() {
         val message = Gson().fromJson(data, Message::class.java)
         runOnUiThread {
             adapter.addMessage(message)
-            binding.labelCount.text = getString(R.string.message_count, adapter.itemCount)
-            // scroll the RecyclerView to the last added element
+            messageBox.put(message)
+            setMessageCount()
             binding.messageList.scrollToPosition(adapter.itemCount - 1);
         }
     }

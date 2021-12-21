@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lear.chatdemo.App
+import com.lear.chatdemo.R
 import com.lear.chatdemo.databinding.ActivityMainBinding
 import com.lear.chatdemo.di.MyViewModel
 import com.lear.chatdemo.di.Truck
@@ -21,10 +22,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MyViewModel by viewModels()
-
-//    val viewModel: MyViewModel by lazy {
-//        ViewModelProvider(this).get(MyViewModel::class.java)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +43,17 @@ class MainActivity : AppCompatActivity() {
                     "请输入用户名",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+        }
+
+        binding.radioArea.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radio_area_1 -> {
+                    App.cluster = "ap1"
+                }
+                R.id.radio_area_2 -> {
+                    App.cluster = "eu"
+                }
             }
         }
     }

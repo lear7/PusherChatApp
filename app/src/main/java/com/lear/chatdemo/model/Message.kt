@@ -41,6 +41,7 @@ data class Message(
     val eventName: String,
     val content: String,
     val extras: String = "",
+    var createTime: Long = 0L,
     @Id
-    var createTime: Long = 0L
+    var id: Long?=null
 )

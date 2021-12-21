@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
 
     <TextView
+        android:id="@+id/label_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:background="#10000000"
+        android:padding="6dp"
+        android:text="Waiting"
+        app:layout_constraintRight_toLeftOf="@+id/label_count"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/label_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

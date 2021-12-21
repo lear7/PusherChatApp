@@ -1,4 +1,4 @@
-package com.lear.chatdemo.di
+package com.lear.chatdemo.di.module
 
 import com.lear.chatdemo.App
 import dagger.Module
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
     private var BASE_URL =
-        if (App.isRemote) "http://192.168.10.40:8082/pusher/" else "http://192.168.6.217:8080/"
+        if (App.isRemote) "http://192.168.10.54:8082/pusher/" else "http://192.168.6.217:8080/"
 
 
     @Singleton

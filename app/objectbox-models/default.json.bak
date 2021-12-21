@@ -56,35 +56,6 @@
         }
       ],
       "relations": []
-    },
-    {
-      "id": "2:2915800621921660004",
-      "lastPropertyId": "4:9098051338184704326",
-      "name": "MessageOld",
-      "properties": [
-        {
-          "id": "1:7236010009273437970",
-          "name": "channelName",
-          "type": 9
-        },
-        {
-          "id": "2:7332006694967339149",
-          "name": "user",
-          "type": 9
-        },
-        {
-          "id": "3:4027880936867463873",
-          "name": "message",
-          "type": 9
-        },
-        {
-          "id": "4:9098051338184704326",
-          "name": "time",
-          "type": 6,
-          "flags": 1
-        }
-      ],
-      "relations": []
     }
   ],
   "lastEntityId": "2:2915800621921660004",
@@ -93,12 +64,18 @@
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    2915800621921660004
+  ],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
     7306503964187388796,
     3782261222056902120,
-    3330041589773081470
+    3330041589773081470,
+    7236010009273437970,
+    7332006694967339149,
+    4027880936867463873,
+    9098051338184704326
   ],
   "retiredRelationUids": [],
   "version": 1

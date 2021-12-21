@@ -5,16 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     tools:context=".activity.MainActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/loginLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="登录"
         android:textSize="25dp"
@@ -24,16 +28,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <EditText
-        android:id="@+id/channelCount"
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="频道数量"
-        android:inputType="number"
-        android:maxLines="1"
-        android:text="100"
-        app:layout_constraintBottom_toTopOf="@id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@id/loginLabel" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/username"
@@ -42,17 +41,58 @@
         android:hint="用户名"
         android:inputType="text"
         android:maxLines="1"
-        android:text="lear"
+        android:text="lear" />
+
+    <EditText
+        android:id="@+id/channelCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="频道数量"
+        android:inputType="number"
+        android:maxLines="1"
+        android:text="1"
         app:layout_constraintBottom_toTopOf="@id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@id/channelCount" />
+        app:layout_constraintTop_toBottomOf="@id/loginLabel" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="加入"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        android:layout_marginTop="32dp"
+        android:text="加入" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <RadioGroup
+        android:id="@+id/radio_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择集群"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/radio_area_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:checked="true"
+            android:text="AP1(Singapore)" />
+
+        <RadioButton
+            android:id="@+id/radio_area_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="EU(UK)" />
+    </RadioGroup>
 
 </LinearLayout>

@@ -12,14 +12,14 @@ plugins {
 import com.build.config.Deps
 
 android {
-    compileSdk 31
-    buildToolsVersion '31.0.0'
+    compileSdk buildVers.compile_sdk
+//    buildToolsVersion buildVers.build_tool
 
     defaultConfig {
         applicationId "com.lear.chatdemo"
 
-        minSdkVersion buildVers.min_sdk
-        targetSdkVersion buildVers.target_sdk
+        minSdk buildVers.min_sdk
+        targetSdk buildVers.target_sdk
         versionCode 1
         versionName "1.0"
 

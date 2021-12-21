@@ -1,4 +1,4 @@
-package com.lear.chatdemo.di
+package com.lear.chatdemo.di.module
 
 import android.app.Application
 import com.lear.chatdemo.App

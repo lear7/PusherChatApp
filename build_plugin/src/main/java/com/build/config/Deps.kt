@@ -5,7 +5,7 @@ object Vers {
     const val cardview = "1.0.0"
     const val constraint_layout = "2.0.4"
     const val core_ktx = "1.7.0"
-    const val coroutines = "1.4.2"
+    const val coroutines = "1.4.3"
     const val firebase = "29.0.2"
     const val fragment = "1.2.5"
     const val hilt = "2.40.5"

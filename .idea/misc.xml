@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/my_message_bubble.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/other_message_bubble.xml" value="0.1465" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2015625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/my_message.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/other_message.xml" value="0.2015625" />
         <entry key="app/src/main/res/menu/menu_chat_detail.xml" value="0.2359375" />

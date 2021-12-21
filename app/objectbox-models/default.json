@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2106223685459288184",
-      "lastPropertyId": "12:956104008315892561",
+      "lastPropertyId": "13:4954790048190536300",
       "name": "Message",
       "properties": [
         {
@@ -51,6 +51,11 @@
         {
           "id": "12:956104008315892561",
           "name": "createTime",
+          "type": 6
+        },
+        {
+          "id": "13:4954790048190536300",
+          "name": "id",
           "type": 6,
           "flags": 1
         }
