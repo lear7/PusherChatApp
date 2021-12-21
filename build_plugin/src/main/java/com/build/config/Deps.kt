@@ -7,6 +7,7 @@ object Vers {
     const val core_ktx = "1.7.0"
     const val coroutines = "1.4.3"
     const val firebase = "29.0.2"
+    const val flowbinding_version = "1.2.0"
     const val fragment = "1.2.5"
     const val hilt = "2.40.5"
     const val lifecycle = "2.3.0-rc01"
@@ -42,9 +43,35 @@ object Deps {
     const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Vers.retrofit}"
 
     // Jetpack
-    const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Vers.lifecycle}"
-    const val lifedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Vers.lifecycle}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Vers.lifecycle}"
+    const val lifecycle_common = "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle}"
+    const val view_model = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Vers.lifecycle}"
+    const val live_data = "androidx.lifecycle:lifecycle-livedata-ktx:${Vers.lifecycle}"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:${Vers.fragment}"
+
+    // flow Platform bindings
+    const val flow_binding =
+        "io.github.reactivecircus.flowbinding:flowbinding-android:${Vers.flowbinding_version}"
+    const val flow_activity =
+        "io.github.reactivecircus.flowbinding:flowbinding-activity:${Vers.flowbinding_version}"
+    const val flow_appcompat =
+        "io.github.reactivecircus.flowbinding:flowbinding-appcompat:${Vers.flowbinding_version}"
+    const val flow_core =
+        "io.github.reactivecircus.flowbinding:flowbinding-core:${Vers.flowbinding_version}"
+    const val flow_drawlayout =
+        "io.github.reactivecircus.flowbinding:flowbinding-drawerlayout:${Vers.flowbinding_version}"
+    const val flow_navigation =
+        "io.github.reactivecircus.flowbinding:flowbinding-navigation:${Vers.flowbinding_version}"
+    const val flow_recyclerview =
+        "io.github.reactivecircus.flowbinding:flowbinding-recyclerview:${Vers.flowbinding_version}"
+    const val flow_swipefresh_layout =
+        "io.github.reactivecircus.flowbinding:flowbinding-swiperefreshlayout:${Vers.flowbinding_version}"
+    const val flow_viewpager2 =
+        "io.github.reactivecircus.flowbinding:flowbinding-viewpager2:${Vers.flowbinding_version}"
+
+    // Material Components bindings
+    const val flow_material =
+        "io.github.reactivecircus.flowbinding:flowbinding-material:${Vers.flowbinding_version}"
 
     // Coroutines
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.coroutines}"

@@ -76,22 +76,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请选择集群"
+            android:text="节点"
             android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radio_area_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:checked="true"
-            android:text="AP1(Singapore)" />
+            android:text="AP1(SG)" />
 
         <RadioButton
             android:id="@+id/radio_area_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:text="US2(Ohio)" />
+
+        <RadioButton
+            android:id="@+id/radio_area_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="EU(UK)" />
     </RadioGroup>
 

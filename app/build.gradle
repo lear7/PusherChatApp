@@ -81,13 +81,21 @@ dependencies {
     implementation Deps.retrofit_moshi
 
     // Jetpack
-    implementation Deps.viewmodel
-    implementation Deps.lifedata
+    implementation Deps.lifecycle
+    implementation Deps.view_model
+    implementation Deps.live_data
     implementation Deps.fragment_ktx
 
     // Coroutines
     implementation Deps.coroutines
     implementation Deps.coroutines_core
+
+    // flowbinding
+    implementation Deps.flow_binding
+    implementation Deps.flow_activity
+    implementation Deps.flow_appcompat
+    implementation Deps.flow_viewpager2
+    implementation Deps.flow_material
 
     // hilt
     implementation Deps.hilt

@@ -37,6 +37,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.util.*
 import javax.inject.Inject
 
 class ChatActivity : AppCompatActivity() {
@@ -66,11 +67,6 @@ class ChatActivity : AppCompatActivity() {
     private val eventName = "new_message"
     private var socketId = ""
 
-    private val serverAp1 =
-        ServerInfo("1316846", "b60a9a22230f313794df", "03d0454ce0a082c90a12", "ap1")
-    private val serverEU =
-        ServerInfo("1320253", "c6b43b2f27a3660a01da", "cd670a1502e8c3fb614f", "eu")
-
     fun doInBatch(time: Long = 10, process: (channel: String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             channelList.forEach {
@@ -92,6 +88,8 @@ class ChatActivity : AppCompatActivity() {
         initChannelList()
         settingAdapter()
         readHistory()
+
+        binding.labelCluster.text = App.cluster.uppercase(Locale.getDefault())
 
         binding.btnSend.setOnClickListener {
             val text = binding.txtMessage.text.toString()
@@ -208,21 +206,17 @@ class ChatActivity : AppCompatActivity() {
         )
     }
 
-    private fun getServerInfo(): ServerInfo {
-        if (App.cluster.equals("ap1")) {
-            return serverAp1
-        } else {
-            return serverEU
-        }
-    }
-
     private fun setupPusher(next: () -> Unit = {}) {
         val authorizer = HttpAuthorizer(endPoint)
+        var headers = HashMap<String, String>()
+        headers.put("clusterName", App.getServerInfo().cluster)
+        authorizer.setHeaders(headers)
+
         val options = PusherOptions()
         options.authorizer = authorizer
-        options.setCluster(getServerInfo().cluster)
+        options.setCluster(App.getServerInfo().cluster)
 
-        pusher = Pusher(getServerInfo().key, options)
+        pusher = Pusher(App.getServerInfo().key, options)
         pusher?.let {
             it.connect(object : ConnectionEventListener {
                 override fun onConnectionStateChange(change: ConnectionStateChange?) {
