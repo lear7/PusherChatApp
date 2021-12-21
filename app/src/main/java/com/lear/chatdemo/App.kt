@@ -15,6 +15,8 @@ class App : Application() {
         var cluster = ""
         val isRemote = true
         val inBatch = false
+
+        val baseUrl = if(isRemote) "http://192.168.10.54:9950/" else "http://192.168.6.217:8080/"
     }
 
     override fun onCreate() {

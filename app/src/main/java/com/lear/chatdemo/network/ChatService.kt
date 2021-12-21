@@ -14,7 +14,7 @@ interface ChatService {
 
     companion object {
         private var BASE_URL =
-            if (App.isRemote) "http://192.168.10.54:9950/pusher/" else "http://192.168.6.217:8080/"
+            if (App.isRemote) App.baseUrl + "pusher/" else App.baseUrl
 
         fun create(): ChatService {
             val retrofit = Retrofit.Builder()

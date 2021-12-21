@@ -59,7 +59,7 @@ class ChatActivity : AppCompatActivity() {
     private val instanceId =
         if (App.isRemote) "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9" else "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9"
     private val endPoint =
-        if (App.isRemote) "http://192.168.10.54:8082/pusher/auth" else "http://192.168.6.217:8080/auth"
+        if (App.isRemote) App.baseUrl + "pusher/auth" else App.baseUrl + "auth"
 
     private lateinit var channelList: ArrayList<String>
 
