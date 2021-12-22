@@ -2,6 +2,7 @@ package com.lear.chatdemo.di
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lear.chatdemo.App
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

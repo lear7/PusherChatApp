@@ -1,19 +1,19 @@
-package com.lear.chatdemo.activity
+package com.lear.chatdemo.activity.ui.chat
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.lear.chatdemo.App
 import com.lear.chatdemo.MessageAdapter
 import com.lear.chatdemo.R
-import com.lear.chatdemo.databinding.ActivityChatBinding
+import com.lear.chatdemo.databinding.FragmentChatBinding
 import com.lear.chatdemo.db.ObjectBox
 import com.lear.chatdemo.activity.ui.chat.model.Message
 import com.lear.chatdemo.network.ChatService
@@ -40,14 +40,57 @@ import retrofit2.Retrofit
 import java.util.*
 import javax.inject.Inject
 
-class ChatActivity : AppCompatActivity() {
+class ChatFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private var _binding: FragmentChatBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val homeViewModel =
+            ViewModelProvider(this).get(ChatViewModel::class.java)
+
+        _binding = FragmentChatBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
         initView()
+        return root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private val MAX_CHANNEL = App.count
+    private val MSG_PERIOD = 100L
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private var userName = "${App.user}"
+
+    private lateinit var adapter: MessageAdapter
+
+    private val messageBox = ObjectBox.store.boxFor(Message::class.java)
+
+    private var pusher: Pusher? = null
+
+    private val instanceId =
+        if (App.isRemote) "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9" else "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9"
+    private val endPoint =
+        if (App.isRemote) App.baseUrl + "pusher/auth" else App.baseUrl + "auth"
+
+    private lateinit var channelList: ArrayList<String>
+
+    private val eventName = "new_message"
+    private var socketId = ""
 
     private fun initView() {
         initChannelList()
@@ -74,31 +117,6 @@ class ChatActivity : AppCompatActivity() {
         setupBeams()
     }
 
-    private val MAX_CHANNEL = App.count
-    private val MSG_PERIOD = 100L
-
-    @Inject
-    lateinit var retrofit: Retrofit
-
-    private var userName = "${App.user}"
-
-    private lateinit var binding: ActivityChatBinding
-    private lateinit var adapter: MessageAdapter
-
-    private val messageBox = ObjectBox.store.boxFor(Message::class.java)
-
-    private var pusher: Pusher? = null
-
-    private val instanceId =
-        if (App.isRemote) "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9" else "ea5b07a6-16ff-4a44-aa2d-07aa23ce54f9"
-    private val endPoint =
-        if (App.isRemote) App.baseUrl + "pusher/auth" else App.baseUrl + "auth"
-
-    private lateinit var channelList: ArrayList<String>
-
-    private val eventName = "new_message"
-    private var socketId = ""
-
     fun doInBatch(time: Long = 10, process: (channel: String) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             channelList.forEach {
@@ -114,8 +132,8 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun settingAdapter() {
-        binding.messageList.layoutManager = LinearLayoutManager(this)
-        adapter = MessageAdapter(this)
+        binding.messageList.layoutManager = LinearLayoutManager(requireContext())
+        adapter = MessageAdapter(requireContext())
         binding.messageList.adapter = adapter
         binding.labelCount.setOnClickListener {
             adapter.clearMessage()
@@ -163,7 +181,7 @@ class ChatActivity : AppCompatActivity() {
                 if (!response.isSuccessful) {
                     Log.e(App.TAG, response.code().toString());
                     Toast.makeText(
-                        applicationContext,
+                        requireContext(),
                         "Response failed:${response.message()}",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -174,7 +192,7 @@ class ChatActivity : AppCompatActivity() {
                 resetInput()
                 Log.e(App.TAG, t.toString());
                 Toast.makeText(
-                    applicationContext,
+                    requireContext(),
                     "Send failed:${t.localizedMessage}",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -183,7 +201,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun setupBeams() {
-        PushNotifications.start(applicationContext, instanceId)
+        PushNotifications.start(requireContext(), instanceId)
         PushNotifications.addDeviceInterest("hello")
 
         PushNotifications.setOnDeviceInterestsChangedListener(object :
@@ -197,9 +215,10 @@ class ChatActivity : AppCompatActivity() {
 
     private fun resetInput() {
         binding.txtMessage.text.clear()
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(
-            currentFocus!!.windowToken,
+            requireActivity().currentFocus!!.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
@@ -220,7 +239,7 @@ class ChatActivity : AppCompatActivity() {
                 override fun onConnectionStateChange(change: ConnectionStateChange?) {
                     Log.d(App.TAG, "onConnectionStateChange: $change")
                     change?.let {
-                        runOnUiThread {
+                        requireActivity().runOnUiThread {
                             binding.labelStatus.text = it.currentState.toString()
                         }
                         when (change.currentState) {
@@ -290,7 +309,7 @@ class ChatActivity : AppCompatActivity() {
 
     private fun showMessage(data: String?) {
         val message = Gson().fromJson(data, Message::class.java)
-        runOnUiThread {
+        requireActivity().runOnUiThread {
             adapter.addMessage(message)
             messageBox.put(message)
             setMessageCount()
@@ -298,9 +317,9 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_chat_detail, menu)
-        return true
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -318,5 +337,4 @@ class ChatActivity : AppCompatActivity() {
         return true
 
     }
-
 }

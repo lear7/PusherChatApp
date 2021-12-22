@@ -2,19 +2,21 @@ package com.lear.chatdemo.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.lear.chatdemo.App
 import com.lear.chatdemo.R
 import com.lear.chatdemo.databinding.ActivityMainBinding
 import com.lear.chatdemo.di.MyViewModel
 import com.lear.chatdemo.di.Truck
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.view.clicks
+import reactivecircus.flowbinding.android.widget.checkedChanges
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,28 +41,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-
-//        findViewById<Button>(R.id.btnLogin)
-//            .clicks() // binding API available in flowbinding-android
-//            .onEach {
-//                // handle button clicked
-//            }
-//            .launchIn(uiScope)
-
-//        uiScope.launch {
-//            findViewById<Button>(R.id.button)
-//                .clicks() // this returns a Flow<Unit>
-//                .collect {
-//                    // handle button clicked
-//                }
-//        }
-
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.clicks().onEach {
             if (binding.username.text.isNotEmpty()) {
                 val user = binding.username.text.toString()
                 App.user = user
                 App.count = binding.channelCount.text.toString().toInt()
-                startActivity(Intent(this@MainActivity, ChatActivity::class.java))
+                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                this@MainActivity.finish()
             } else {
                 Toast.makeText(
                     applicationContext,
@@ -68,10 +55,11 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
+        }.launchIn(lifecycleScope)
 
-        binding.radioArea.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
+        binding.radioArea.checkedChanges().skipInitialValue().onEach {
+            delay(3000)
+            when (it) {
                 R.id.radio_area_1 -> {
                     App.cluster = "ap1"
                 }
@@ -82,6 +70,11 @@ class MainActivity : AppCompatActivity() {
                     App.cluster = "eu"
                 }
             }
-        }
+            Toast.makeText(
+                applicationContext,
+                "切换成功",
+                Toast.LENGTH_SHORT
+            ).show()
+        }.launchIn(lifecycleScope)
     }
 }

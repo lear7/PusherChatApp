@@ -13,6 +13,7 @@ object Vers {
     const val lifecycle = "2.3.0-rc01"
     const val material = "1.4.0"
     const val mvvm_hilt = "1.0.0-alpha03"
+    const val navigation_view = "2.3.5"
     const val recyclerview = "1.2.0"
     const val retrofit = "2.4.0"
     const val pusher = "1.8.0"
@@ -22,12 +23,15 @@ object Vers {
 object Deps {
     const val app_compat = "androidx.appcompat:appcompat:${Vers.app_compat}"
     const val core_ktx = "androidx.core:core-ktx:${Vers.core_ktx}"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:${Vers.fragment}"
 
     // material
     const val material = "com.google.android.material:material:${Vers.material}"
 
     // view
     const val cardview = "androidx.cardview:cardview:${Vers.cardview}"
+    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Vers.navigation_view}"
+    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Vers.navigation_view}"
     const val constraint_layout =
         "androidx.constraintlayout:constraintlayout:${Vers.constraint_layout}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${Vers.recyclerview}"
@@ -43,11 +47,10 @@ object Deps {
     const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Vers.retrofit}"
 
     // Jetpack
-    const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Vers.lifecycle}"
-    const val lifecycle_common = "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle}"
-    const val view_model = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Vers.lifecycle}"
-    const val live_data = "androidx.lifecycle:lifecycle-livedata-ktx:${Vers.lifecycle}"
-    const val fragment_ktx = "androidx.fragment:fragment-ktx:${Vers.fragment}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle}"
+    const val lifecycle_scope = "androidx.lifecycle:lifecycle-runtime-ktx:${Vers.lifecycle}"
+    const val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Vers.lifecycle}"
+    const val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Vers.lifecycle}"
 
     // flow Platform bindings
     const val flow_binding =

@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.4114583333333333" />
+        <entry key="app/src/main/res/drawable/ic_chat_black_24dp.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/my_message_bubble.xml" value="0.1465" />
         <entry key="app/src/main/res/drawable/other_message_bubble.xml" value="0.1465" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.2677083333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2677083333333333" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/layout/my_message.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/other_message.xml" value="0.2015625" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/menu/menu_chat_detail.xml" value="0.2359375" />
       </map>
     </option>

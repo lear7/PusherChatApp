@@ -22,15 +22,15 @@ class App : Application() {
 
         var count: Int = 0
         var cluster = "ap1"
-        val isRemote = true
+        val isRemote = false
         val inBatch = false
 
         val baseUrl = if (isRemote) "http://192.168.10.54:9950/" else "http://192.168.6.217:8080/"
 
         fun getServerInfo(): ServerInfo {
-            if (App.cluster.startsWith("us2")) {
+            if (cluster.startsWith("us2")) {
                 return serverUS2
-            } else if (App.cluster.startsWith("serverEU")) {
+            } else if (cluster.startsWith("eu")) {
                 return serverEU
             } else {
                 return serverAp1

@@ -8,3 +8,9 @@ fun Long.showAsTime(): String {
     val format = SimpleDateFormat("HH:mm:ss MM/dd")
     return format.format(date) // 2020-06-30 11:00:26.401
 }
+
+fun Boolean.runIfTrue(block: () -> Unit) {
+    if (this) {
+        block()
+    }
+}

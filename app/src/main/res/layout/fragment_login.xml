@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    tools:context=".activity.MainActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/loginLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="登录"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/username"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="用户名"
+        android:inputType="text"
+        android:maxLines="1"
+        android:text="lear" />
+
+    <EditText
+        android:id="@+id/channelCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="频道数量"
+        android:inputType="number"
+        android:maxLines="1"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@id/loginLabel" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="加入" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <RadioGroup
+        android:id="@+id/radio_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="节点"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/radio_area_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="AP1(SG)" />
+
+        <RadioButton
+            android:id="@+id/radio_area_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="US2(Ohio)" />
+
+        <RadioButton
+            android:id="@+id/radio_area_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EU(UK)" />
+    </RadioGroup>
+
+</LinearLayout>

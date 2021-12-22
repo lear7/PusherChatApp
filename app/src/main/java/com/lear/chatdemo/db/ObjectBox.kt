@@ -1,7 +1,7 @@
 package com.lear.chatdemo.db
 
 import android.content.Context
-import com.lear.chatdemo.model.MyObjectBox
+import com.lear.chatdemo.activity.ui.chat.model.MyObjectBox
 import io.objectbox.BoxStore
 
 object ObjectBox {

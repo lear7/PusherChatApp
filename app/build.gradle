@@ -68,6 +68,9 @@ dependencies {
 
     implementation Deps.core_ktx
     implementation Deps.app_compat
+    implementation Deps.navigation_ui
+    implementation Deps.navigation_fragment
+    implementation Deps.fragment_ktx
     implementation Deps.material
     implementation Deps.constraint_layout
     implementation Deps.recyclerview
@@ -82,9 +85,9 @@ dependencies {
 
     // Jetpack
     implementation Deps.lifecycle
-    implementation Deps.view_model
-    implementation Deps.live_data
-    implementation Deps.fragment_ktx
+    implementation Deps.lifecycle_scope
+    implementation Deps.lifecycle_viewmodel
+    implementation Deps.lifecycle_livedata
 
     // Coroutines
     implementation Deps.coroutines

@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatDemo">
         <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
