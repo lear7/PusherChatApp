@@ -4,12 +4,13 @@ object Vers {
     const val app_compat = "1.3.0"
     const val cardview = "1.0.0"
     const val constraint_layout = "2.0.4"
-    const val core_ktx = "1.7.0"
+    const val core_ktx  = "1.7.0"
     const val coroutines = "1.4.3"
     const val firebase = "29.0.2"
     const val flowbinding_version = "1.2.0"
     const val fragment = "1.2.5"
     const val hilt = "2.40.5"
+    const val kotlin  = "1.6.1"
     const val lifecycle = "2.3.0-rc01"
     const val material = "1.4.0"
     const val mvvm_hilt = "1.0.0-alpha03"
@@ -31,7 +32,8 @@ object Deps {
     // view
     const val cardview = "androidx.cardview:cardview:${Vers.cardview}"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Vers.navigation_view}"
-    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:${Vers.navigation_view}"
+    const val navigation_fragment =
+        "androidx.navigation:navigation-fragment-ktx:${Vers.navigation_view}"
     const val constraint_layout =
         "androidx.constraintlayout:constraintlayout:${Vers.constraint_layout}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${Vers.recyclerview}"
@@ -45,6 +47,7 @@ object Deps {
     // retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:${Vers.retrofit}"
     const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Vers.retrofit}"
+    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Vers.retrofit}"
 
     // Jetpack
     const val lifecycle = "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle}"
@@ -76,13 +79,17 @@ object Deps {
     const val flow_material =
         "io.github.reactivecircus.flowbinding:flowbinding-material:${Vers.flowbinding_version}"
 
-    // Coroutines
-    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.coroutines}"
-    const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Vers.coroutines}"
-
     // hilt
     const val hilt = "com.google.dagger:hilt-android:${Vers.hilt}"
     const val hilt_kapt = "com.google.dagger:hilt-android-compiler:${Vers.hilt}"
+
+    // Coroutines
+    const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Vers.kotlin}"
+    const val coroutines_android =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.coroutines}"
+    const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Vers.coroutines}"
+    const val hilt_jetbrains = "org.jetbrains.kotlin:kotlin-stdlib:${Vers.coroutines}"
+    const val kotlinx_serialization = "org.jetbrains.kotlinx-serialization-core:${Vers.coroutines}"
 
     const val mvvm_hilt = "androidx.hilt:hilt-lifecycle-viewmodel:${Vers.mvvm_hilt}"
     const val mvvm_hilt_kapt = "androidx.hilt:hilt-compiler:${Vers.mvvm_hilt}"

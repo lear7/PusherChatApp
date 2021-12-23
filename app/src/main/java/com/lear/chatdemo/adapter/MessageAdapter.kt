@@ -1,11 +1,14 @@
-package com.lear.chatdemo
+package com.lear.chatdemo.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.lear.chatdemo.App
+import com.lear.chatdemo.R
 import com.lear.chatdemo.activity.ui.chat.model.Message
 import com.lear.chatdemo.utils.DateUtils
 
@@ -31,14 +34,36 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
         notifyDataSetChanged()
     }
 
+    fun getMessage(msgId: String): Message? {
+        return messages.first {
+            it.msgId == msgId
+        }
+    }
+
+    fun updateMessage(newMessage: Message) {
+        messages.forEachIndexed { index, message ->
+            if (messages[index].msgId == newMessage.msgId) {
+                messages[index] = newMessage
+                return@forEachIndexed
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun updateMessageState(msgId: String, newState: Int) {
+        getMessage(msgId)?.let {
+            it.msgState = newState
+            updateMessage(it)
+        }
+    }
+
     override fun getItemCount(): Int {
         return messages.size
     }
 
     override fun getItemViewType(position: Int): Int {
         val message = messages.get(position)
-
-        return if (App.user == message.to) {
+        return if (App.fromUser == message.from) {
             VIEW_TYPE_MY_MESSAGE
         } else {
             VIEW_TYPE_OTHER_MESSAGE
@@ -48,11 +73,11 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         return if (viewType == VIEW_TYPE_MY_MESSAGE) {
             MyMessageViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.my_message, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.item_sent_message, parent, false)
             )
         } else {
             OtherMessageViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.other_message, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.item_received_message, parent, false)
             )
         }
     }
@@ -66,11 +91,42 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
     inner class MyMessageViewHolder(view: View) : MessageViewHolder(view) {
         private var messageText: TextView = view.findViewById(R.id.txtMyMessage)
         private var timeText: TextView = view.findViewById(R.id.txtMyMessageTime)
-
+        private var recentText: TextView = view.findViewById(R.id.txtMyMessageRecent)
+        private var statusText: TextView = view.findViewById(R.id.txtMyMessageStatus)
+        private var sendingIcon: ProgressBar = view.findViewById(R.id.txtMyMessageSending)
 
         override fun bind(message: Message) {
             messageText.text = message.content
-            timeText.text = DateUtils.fromMillisToTimeString(message.createTime)
+            timeText.text = DateUtils.fromMillisToTimeString(message.createTime ?: 0)
+            when (message.msgState) {
+                0 -> {
+                    statusText.setText("Sent")
+                    statusText.visibility = View.VISIBLE
+                    recentText.visibility = View.GONE
+                    timeText.visibility = View.VISIBLE
+                    sendingIcon.visibility = View.GONE
+                }
+                1 -> {
+                    statusText.setText("Delivered")
+                    statusText.visibility = View.VISIBLE
+                    recentText.visibility = View.GONE
+                    timeText.visibility = View.VISIBLE
+                    sendingIcon.visibility = View.GONE
+                }
+                -2 -> {
+                    statusText.visibility = View.GONE
+                    recentText.visibility = View.VISIBLE
+                    timeText.visibility = View.GONE
+                    sendingIcon.visibility = View.GONE
+                }
+                else -> {
+                    // -1 init
+                    statusText.visibility = View.GONE
+                    recentText.visibility = View.GONE
+                    timeText.visibility = View.GONE
+                    sendingIcon.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
@@ -81,8 +137,8 @@ class MessageAdapter(val context: Context) : RecyclerView.Adapter<MessageViewHol
 
         override fun bind(message: Message) {
             messageText.text = message.content
-            userText.text = "${message.from}(${message.channelName})"
-            timeText.text = DateUtils.fromMillisToTimeString(message.createTime)
+            userText.text = "${message.from}"
+            timeText.text = DateUtils.fromMillisToTimeString(message.createTime ?: 0)
         }
     }
 }

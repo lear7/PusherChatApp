@@ -10,7 +10,8 @@ class App : Application() {
     companion object {
         val TAG = "ChatActivity"
 
-        lateinit var user: String
+        lateinit var fromUser: String
+        lateinit var toUser: String
 
         private val serverAp1 =
             ServerInfo("1316846", "b60a9a22230f313794df", "03d0454ce0a082c90a12", "ap1")
@@ -22,7 +23,7 @@ class App : Application() {
 
         var count: Int = 0
         var cluster = "ap1"
-        val isRemote = false
+        val isRemote = true
         val inBatch = false
 
         val baseUrl = if (isRemote) "http://192.168.10.54:9950/" else "http://192.168.6.217:8080/"
@@ -36,6 +37,9 @@ class App : Application() {
                 return serverAp1
             }
         }
+
+        fun getMyChannel() = "private-$fromUser"
+        fun getTargetChannel() = "private-$toUser"
     }
 
     override fun onCreate() {

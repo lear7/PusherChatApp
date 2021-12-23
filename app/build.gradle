@@ -90,7 +90,7 @@ dependencies {
     implementation Deps.lifecycle_livedata
 
     // Coroutines
-    implementation Deps.coroutines
+    implementation Deps.coroutines_android
     implementation Deps.coroutines_core
 
     // flowbinding

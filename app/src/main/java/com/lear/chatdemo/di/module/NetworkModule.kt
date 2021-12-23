@@ -1,13 +1,14 @@
 package com.lear.chatdemo.di.module
 
 import com.lear.chatdemo.App
+import com.lear.chatdemo.network.ChatService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -15,9 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    private var BASE_URL =
-        if (App.isRemote) "http://192.168.10.54:8082/pusher/" else "http://192.168.6.217:8080/"
-
+    private var BASE_URL = if (App.isRemote) App.baseUrl + "pusher/" else App.baseUrl
 
     @Singleton
     @Provides
@@ -34,16 +33,15 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+//            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
 
-//    @Provides
-//    fun provideChatService(): ChatService {
-//        val retrofit = Retrofit.Builder()
-//            .addConverterFactory(MoshiConverterFactory.create())
-//            .build()
-//        return retrofit.create(ChatService::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun provideChatService(retrofit: Retrofit): ChatService {
+        return retrofit.create(ChatService::class.java)
+    }
 }

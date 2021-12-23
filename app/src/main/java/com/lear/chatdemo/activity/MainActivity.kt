@@ -12,7 +12,6 @@ import com.lear.chatdemo.databinding.ActivityMainBinding
 import com.lear.chatdemo.di.MyViewModel
 import com.lear.chatdemo.di.Truck
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.view.clicks
@@ -34,31 +33,50 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        truck.deliver()
-        viewModel.doWork()
+        // DI test
+        // truck.deliver()
+        // viewModel.doWork()
 
+        // this.getSN()
         initViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // binding.username.setText("user_${this.getSN()}")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        // binding.username.setText("user_${this.getSN()}")
     }
 
     private fun initViews() {
         binding.btnLogin.clicks().onEach {
-            if (binding.username.text.isNotEmpty()) {
-                val user = binding.username.text.toString()
-                App.user = user
-                App.count = binding.channelCount.text.toString().toInt()
-                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                this@MainActivity.finish()
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "请输入用户名",
-                    Toast.LENGTH_SHORT
-                ).show()
+            App.count = binding.channelCount.text.toString().toInt()
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            this@MainActivity.finish()
+        }.launchIn(lifecycleScope)
+
+        binding.radioUserName.checkedChanges().onEach {
+            when (it) {
+                R.id.user_name1 -> {
+                    App.fromUser = binding.userName1.text.toString()
+                    App.toUser = binding.userName2.text.toString()
+                }
+                R.id.user_name2 -> {
+                    App.fromUser = binding.userName2.text.toString()
+                    App.toUser = binding.userName1.text.toString()
+                }
+                else -> ""
             }
         }.launchIn(lifecycleScope)
 
         binding.radioArea.checkedChanges().skipInitialValue().onEach {
-            delay(3000)
             when (it) {
                 R.id.radio_area_1 -> {
                     App.cluster = "ap1"

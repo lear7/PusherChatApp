@@ -1,0 +1,13 @@
+plugins {
+    id 'com.build.config'
+    id 'java-library'
+}
+
+import com.build.config.Deps
+
+dependencies {
+    implementation Deps.stdlib
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

@@ -2,15 +2,22 @@ package com.lear.chatdemo.activity.ui.chat.model
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import java.util.*
 
 
+//@ApiModelProperty("消息ID")
+//private val msgId: String = UUID.randomUUID().toString()
+//
+//@ApiModelProperty("消息状态：0：未读，1：已读，-1：初始状态，-2发送失败")
+//private val msgState = 0
+//
 //@ApiModelProperty("消息目标：UID")
 //private val to: String? = null
 //
 //@ApiModelProperty("消息来源：UID")
 //private val from: String? = null
 //
-//@ApiModelProperty("消息类型int类型(0:text、1:image、2:voice、3:vedio、4:music、5:news、6:sys-msg、7:sys-note)")
+//@ApiModelProperty("消息类型int类型(0:text、1:image、2:voice、3:vedio、4:music、5:news、6:msg-tag)")
 //private val msgType = 0
 //
 //@ApiModelProperty("聊天类型int类型(0:未知,1:公聊,2:私聊)")
@@ -22,26 +29,30 @@ import io.objectbox.annotation.Id
 //@ApiModelProperty("事件名称")
 //private val eventName: String? = null
 //
+//@ApiModelProperty("集群节点")
+//private val cluster: String? = null
+//
 //@ApiModelProperty("内容")
 //private val content: String? = null
 //
-//@ApiModelProperty("扩展字段,JSON对象格式如：{'扩展字段名称':'扩展字段value'}")
-//private val extras: String? = null
-//
 //@ApiModelProperty("消息时间戳")
-//private val createTime: Date? = null
+//private val createTime: Long? = null
 
 @Entity
 data class Message(
-    val to: String,
-    val from: String,
-    val msgType: Int = 0,
-    val chatType: Int = 2,
-    val channelName: String,
-    val eventName: String,
-    val content: String,
-    val extras: String = "",
-    var createTime: Long = 0L,
+    val msgId: String,
+    var msgState: Int = -1,
+    val to: String? = "",
+    val from: String? = "",
+    val msgType: Int? = 0,
+    val chatType: Int? = 2,
+    val channelName: String?,
+    val eventName: String?,
+    val cluster: String?,
+    val content: String? = "",
+    var createTime: Long? = 0L,
+    var sendState: Int? = 0,
     @Id
-    var id: Long?=null
+    var id: Long? = null
 )
+
