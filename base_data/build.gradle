@@ -1,6 +1,7 @@
 plugins {
     id 'com.build.config'
     id 'com.android.library'
+    id 'kotlin-android'
 }
 
 import com.build.config.Deps
@@ -30,6 +31,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(Libs.lib_domain)
+
 
     implementation Deps.stdlib
     implementation Deps.core_ktx

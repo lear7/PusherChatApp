@@ -1,7 +1,7 @@
 package com.gkd.data.managers
 
 import com.gkd.data.common.Result
-import com.simple.domain.entities.Persona
+import com.gkd.domain.entities.Persona
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  **/
 interface CharactersManager {
     fun getAllCharacters(): Flow<Result<List<Persona>>>
-    fun searchCharacters(name : String) : Flow<Result<List<Persona>>>
+    fun searchCharacters(name: String): Flow<Result<List<Persona>>>
 }

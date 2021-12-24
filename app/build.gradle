@@ -66,8 +66,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation project(Libs.lib_data)
+
     implementation Deps.core_ktx
     implementation Deps.app_compat
     implementation Deps.navigation_ui

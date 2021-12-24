@@ -1,11 +1,13 @@
 package com.gkd.data.managers
 
-import com.gkd.data.services.ApiService
 import com.gkd.data.common.CallErrors
-import com.simple.domain.dto.toModel
-import com.simple.domain.entities.Persona
-import kotlinx.coroutines.flow.Flow
 import com.gkd.data.common.Result
+import com.gkd.data.common.applyCommonSideEffects
+import com.gkd.data.services.ApiService
+import com.gkd.domain.dto.toModel
+import com.gkd.domain.entities.Persona
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 /**
@@ -31,7 +33,7 @@ class CharactersManagerImpl(private val api: ApiService) : CharactersManager {
     override fun searchCharacters(name: String): Flow<Result<List<Persona>>> = flow {
         api.searchCharacterByName(name).run {
             if (this.isSuccessful) {
-                if (this.body() == null ) {
+                if (this.body() == null) {
                     emit(Result.Error(CallErrors.ErrorEmptyData))
                 } else {
                     emit(Result.Success(this.body()!!.results.toModel()))

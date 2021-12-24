@@ -3,13 +3,16 @@ package com.gkd.projectx.ext
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.gkd.data.common.CallErrors
 import com.gkd.projectx.App
+import com.gkd.projectx.R
 import com.gkd.projectx.activity.ui.chat.model.Message
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
@@ -66,6 +69,17 @@ fun Activity.getSN(): String {
         }
     } else {
         Build.SERIAL
+    }
+
+
+    fun CallErrors.getMessage(context: Context): String {
+        return when (this) {
+            is CallErrors.ErrorEmptyData -> context.getString(R.string.error_empty_data)
+            is CallErrors.ErrorServer -> context.getString(R.string.error_server_error)
+            is CallErrors.ErrorException -> context.getString(
+                R.string.error_exception
+            )
+        }
     }
 
 }

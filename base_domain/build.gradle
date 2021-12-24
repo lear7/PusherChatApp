@@ -1,6 +1,7 @@
 plugins {
     id 'com.build.config'
     id 'java-library'
+    id 'kotlin'
 }
 
 import com.build.config.Deps

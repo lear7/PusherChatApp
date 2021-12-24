@@ -2,7 +2,7 @@ package com.gkd.data.services
 
 import com.gkd.data.common.KEY_NAME
 import com.gkd.data.common.PATH_CHARACTER
-import com.simple.domain.dto.ECharacters
+import com.gkd.domain.dto.ECharacters
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,6 +16,6 @@ interface ApiService {
     suspend fun getAllCharacters(): Response<ECharacters>
 
     @GET(PATH_CHARACTER)
-    suspend fun searchCharacterByName(@Query(KEY_NAME) name: String) : Response<ECharacters>
+    suspend fun searchCharacterByName(@Query(KEY_NAME) name: String): Response<ECharacters>
 
 }
