@@ -1,8 +1,8 @@
 package com.gkd.projectx
 
 import android.app.Application
-import com.gkd.projectx.activity.ServerInfo
-import com.gkd.projectx.db.ObjectBox
+import com.gkd.data.model.ServerInfo
+import com.gkd.data.db.ObjectBox
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

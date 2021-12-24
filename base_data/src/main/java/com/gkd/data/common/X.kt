@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retryWhen
 import java.io.IOException
 
-fun <T : Any> Flow<Result<T>>.applyCommonSideEffects() =
+fun <T : Any> Flow<DataResult<T>>.applyCommonSideEffects() =
     retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Utils.MAX_RETRIES) -> {
@@ -19,5 +19,5 @@ fun <T : Any> Flow<Result<T>>.applyCommonSideEffects() =
         }
     }
         .onStart {
-            emit(Result.Loading)
+            emit(DataResult.Loading)
         }

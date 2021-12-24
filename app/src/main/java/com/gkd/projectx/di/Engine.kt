@@ -30,11 +30,3 @@ class ElectricEngine @Inject constructor() : Engine {
         Log.d(App.TAG, "Electric engine shutdown.")
     }
 }
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class BindGasEngine
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class BindElectricEngine

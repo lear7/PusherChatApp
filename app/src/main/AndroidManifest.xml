@@ -15,11 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatDemo">
         <activity
-            android:name="com.gkd.projectx.activity.HomeActivity"
+            android:name="com.gkd.projectx.home.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home" />
         <activity
-            android:name="com.gkd.projectx.activity.MainActivity"
+            android:name="com.gkd.projectx.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

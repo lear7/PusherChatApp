@@ -2,6 +2,8 @@ package com.gkd.projectx.di
 
 import android.util.Log
 import com.gkd.projectx.App
+import com.gkd.projectx.di.module.BindElectricEngine
+import com.gkd.projectx.di.module.BindGasEngine
 import javax.inject.Inject
 
 class Truck @Inject constructor(val driver: Driver) {
