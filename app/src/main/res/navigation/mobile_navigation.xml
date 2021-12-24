@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.lear.chatdemo.activity.ui.home.HomeFragment"
+        android:name="com.gkd.projectx.activity.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.lear.chatdemo.activity.ui.notifications.NotificationsFragment"
+        android:name="com.gkd.projectx.activity.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.lear.chatdemo.activity.ui.chat.ChatFragment"
+        android:name="com.gkd.projectx.activity.ui.chat.ChatFragment"
         android:label="@string/title_chat"
         tools:layout="@layout/fragment_chat" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.lear.chatdemo.activity.ui.dashboard.DashboardFragment"
+        android:name="com.gkd.projectx.activity.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

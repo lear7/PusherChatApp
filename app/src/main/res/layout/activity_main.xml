@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    tools:context=".activity.MainActivity">
+    tools:context="com.gkd.projectx.activity.MainActivity">
 
     <View
         android:layout_width="match_parent"

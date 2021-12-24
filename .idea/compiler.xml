@@ -3,8 +3,10 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="build_plugin" target="11" />
+      <module name="ChatDemo.app" target="11" />
+      <module name="ChatDemo.base_data" target="11" />
       <module name="PusherChatApp.app" target="11" />
-      <module name="PusherChatApp.data" target="11" />
+      <module name="PusherChatApp.base_data" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

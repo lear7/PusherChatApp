@@ -19,7 +19,7 @@ buildscript {
     dependencies {
         classpath buildPaths.gradle_tools
         classpath buildPaths.kotlin_gradle_plugin
-        classpath buildPaths.gms
+        // classpath buildPaths.gms
         classpath buildPaths.object_box
         classpath buildPaths.hilt
     }

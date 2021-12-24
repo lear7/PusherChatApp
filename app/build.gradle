@@ -2,7 +2,7 @@ plugins {
     id 'com.build.config'
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.gms.google-services'
+    // id 'com.google.gms.google-services'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
@@ -10,13 +10,14 @@ plugins {
 }
 
 import com.build.config.Deps
+import com.build.config.Libs
 
 android {
     compileSdk buildVers.compile_sdk
 //    buildToolsVersion buildVers.build_tool
 
     defaultConfig {
-        applicationId "com.lear.chatdemo"
+        applicationId "com.gkd.projectx"
 
         minSdk buildVers.min_sdk
         targetSdk buildVers.target_sdk
@@ -66,6 +67,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation project(Libs.lib_data)
     implementation Deps.core_ktx
     implementation Deps.app_compat
     implementation Deps.navigation_ui
@@ -107,12 +109,8 @@ dependencies {
     implementation Deps.mvvm_hilt
     kapt Deps.mvvm_hilt_kapt
 
-    // Import the BoM for the Firebase platform
-//    implementation Deps.firebase
-    implementation platform(Deps.firebase)
-    // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation Deps.firebase_message
-    implementation Deps.firebase_analytics
-    implementation Deps.firebase_iid
+//    implementation platform(Deps.firebase)
+//    implementation Deps.firebase_message
+//    implementation Deps.firebase_analytics
+//    implementation Deps.firebase_iid
 }
