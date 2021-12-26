@@ -1,6 +1,5 @@
 package com.gkd.projectx.main
 
-//import com.gkd.projectx.di.Repository
 import com.gkd.data.managers.CharactersRepository
 import com.gkd.projectx.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.gkd.data.common
+package com.gkd.data.services
 
 /**
  * Created by Rim Gazzah on 8/27/20.

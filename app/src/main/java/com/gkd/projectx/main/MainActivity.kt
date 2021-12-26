@@ -1,94 +1,80 @@
 package com.gkd.projectx.main
 
-import android.util.Log
-import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.gkd.data.services.CharacterService
 import com.gkd.projectx.App
-import com.gkd.projectx.common.BaseActivity
+import com.gkd.projectx.R
 import com.gkd.projectx.databinding.ActivityMainBinding
-import com.gkd.projectx.ext.getMessage
-import com.gkd.projectx.ext.runIfTrue
-import com.gkd.projectx.main.ui.CharactersAdapter
+import com.gkd.projectx.di.Truck
+import com.gkd.projectx.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import reactivecircus.flowbinding.android.view.clicks
+import reactivecircus.flowbinding.android.widget.checkedChanges
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity :
-    BaseActivity<MainIntent, MainAction, MainState, MainViewModel, ActivityMainBinding>(
-        MainViewModel::class.java,
-        {
-            ActivityMainBinding.inflate(it)
-        }) {
-
-    private val mAdapter = CharactersAdapter()
-
-    override fun initUI() {
-        b.homeListCharacters.adapter = mAdapter
-    }
-
-    override fun initDATA() {
-        dispatchIntent(MainIntent.LoadAllCharacters)
-    }
-
-    override fun initEVENT() {
-        b.homeSearchImage.setOnClickListener {
-            b.homeSearchText.text.isNullOrBlank().not().runIfTrue {
-                dispatchIntent(MainIntent.SearchCharacter(b.homeSearchText.text.toString()))
-            }
-        }
-        b.homeSearchText.doOnTextChanged { text, _, _, _ ->
-            text.isNullOrBlank()
-                .and(mState is MainState.ResultSearch)
-                .runIfTrue {
-                    dispatchIntent(MainIntent.ClearSearch)
-                }
-        }
-    }
-
-    override fun render(state: MainState) {
-        b.homeProgress.isVisible = state is MainState.Loading
-        b.homeMessage.isVisible = state is MainState.Exception
-        b.homeListCharacters.isVisible =
-            state is MainState.ResultSearch || state is MainState.ResultAllPersona
-
-        when (state) {
-            is MainState.ResultAllPersona -> {
-                mAdapter.updateList(state.data)
-            }
-            is MainState.ResultSearch -> {
-                mAdapter.updateList(state.data)
-                // other logic ...
-            }
-            is MainState.Exception -> {
-                state.callErrors.getMessage(this).let {
-                    b.homeMessage.text = it
-                    Log.e(App.TAG,state.callErrors.toString())
-                }
-            }
-        }
-    }
+class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var apiService: CharacterService
+    lateinit var truck: Truck
 
-    @Inject
-    lateinit var retrofit: Retrofit
+    private lateinit var binding: ActivityMainBinding
 
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch(Dispatchers.IO) {
-            Log.e(App.TAG,"hello")
-            var response = retrofit.create(CharacterService::class.java).getAllCharacters()
-            if (response.isSuccessful) {
-                Log.e(App.TAG, "response success")
-            } else {
-                Log.e(App.TAG, "response not success")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // DI test
+        truck.deliver()
+        // viewModel.doWork()
+
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.btnLogin.clicks().onEach {
+            App.count = binding.channelCount.text.toString().toInt()
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            this@MainActivity.finish()
+        }.launchIn(lifecycleScope)
+
+        binding.radioUserName.checkedChanges().onEach {
+            when (it) {
+                R.id.user_name1 -> {
+                    App.fromUser = binding.userName1.text.toString()
+                    App.toUser = binding.userName2.text.toString()
+                }
+                R.id.user_name2 -> {
+                    App.fromUser = binding.userName2.text.toString()
+                    App.toUser = binding.userName1.text.toString()
+                }
+                else -> ""
             }
-        }
+        }.launchIn(lifecycleScope)
+
+        binding.radioArea.checkedChanges().skipInitialValue().onEach {
+            when (it) {
+                R.id.radio_area_1 -> {
+                    App.cluster = "ap1"
+                }
+                R.id.radio_area_2 -> {
+                    App.cluster = "us2"
+                }
+                R.id.radio_area_3 -> {
+                    App.cluster = "eu"
+                }
+            }
+            Toast.makeText(
+                applicationContext,
+                "切换成功",
+                Toast.LENGTH_SHORT
+            ).show()
+        }.launchIn(lifecycleScope)
     }
 }

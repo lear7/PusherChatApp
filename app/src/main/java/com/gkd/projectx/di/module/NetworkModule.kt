@@ -1,9 +1,9 @@
 package com.gkd.projectx.di.module
 
 import android.content.Context
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.gkd.data.services.CharacterService
 import com.gkd.data.services.ChatService
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +20,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    private var BASE_URL = "https://rickandmortyapi.com/api/"
-    //       if (com.gkd.projectx.App.Companion.isRemote) com.gkd.projectx.App.Companion.baseUrl + "pusher/" else com.gkd.projectx.App.Companion.baseUrl
+    private var CHAT_URL =
+        if (com.gkd.projectx.App.Companion.isRemote) com.gkd.projectx.App.Companion.baseUrl + "pusher/" else com.gkd.projectx.App.Companion.baseUrl
 
     @Singleton
     @Provides
@@ -36,8 +36,8 @@ class NetworkModule {
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-//            .cache(cache)
-//            .addNetworkInterceptor(StethoInterceptor())
+            .cache(cache)
+            .addNetworkInterceptor(StethoInterceptor())
             .build()
     }
 
@@ -45,10 +45,8 @@ class NetworkModule {
     @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-//            .addConverterFactory(MoshiConverterFactory.create())
+            .baseUrl(CHAT_URL)
             .addConverterFactory((GsonConverterFactory.create()))
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }
@@ -56,7 +54,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesChatService(retrofit: Retrofit): ChatService {
-         return retrofit.create(ChatService::class.java)
+        return retrofit.create(ChatService::class.java)
     }
 
     @Singleton

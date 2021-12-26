@@ -1,42 +1,32 @@
 package com.gkd.projectx.home.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.gkd.projectx.common.BaseFragment
 import com.gkd.projectx.databinding.FragmentHomeBinding
+import com.gkd.projectx.home.home.contract.HomeAction
+import com.gkd.projectx.home.home.contract.HomeIntent
+import com.gkd.projectx.home.home.contract.HomeState
 
-class HomeFragment : Fragment() {
+class HomeFragment :
+    BaseFragment<HomeIntent, HomeAction, HomeState, HomeViewModel, FragmentHomeBinding>(
+        HomeViewModel::class.java,
+        { inflater, container ->
+            FragmentHomeBinding.inflate(inflater, container, false)
+        }) {
 
-    private var _binding: FragmentHomeBinding? = null
+    override fun initUI() {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun initDATA() {
+
     }
+
+    override fun initEVENT() {
+
+    }
+
+    override fun render(state: HomeState) {
+
+    }
+
 }

@@ -4,6 +4,7 @@ import com.gkd.data.common.CallErrors
 import com.gkd.data.common.DataResult
 import com.gkd.data.common.applyCommonSideEffects
 import com.gkd.data.services.CharacterService
+import com.gkd.data.services.PATH_CHARACTER
 import com.gkd.domain.dto.toModel
 import com.gkd.domain.entities.Persona
 import kotlinx.coroutines.flow.Flow
@@ -16,8 +17,10 @@ import kotlinx.coroutines.flow.flow
 class CharactersRepositoryImpl constructor(private val characterApi: CharacterService) :
     CharactersRepository {
 
+    private var baseUrl = "https://rickandmortyapi.com/api/"
+
     override fun getAllCharacters(): Flow<DataResult<List<Persona>>> = flow {
-        characterApi.getAllCharacters().run {
+        characterApi.getAllCharacters(baseUrl + PATH_CHARACTER).run {
             if (this.isSuccessful) {
                 if (this.body() == null) {
                     emit(DataResult.Error(CallErrors.ErrorEmptyData))
@@ -33,7 +36,7 @@ class CharactersRepositoryImpl constructor(private val characterApi: CharacterSe
     }
 
     override fun searchCharacters(name: String): Flow<DataResult<List<Persona>>> = flow {
-        characterApi.searchCharacterByName(name).run {
+        characterApi.searchCharacterByName(baseUrl + PATH_CHARACTER, name).run {
             if (this.isSuccessful) {
                 if (this.body() == null) {
                     emit(DataResult.Error(CallErrors.ErrorEmptyData))
