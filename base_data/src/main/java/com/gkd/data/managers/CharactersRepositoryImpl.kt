@@ -1,8 +1,8 @@
 package com.gkd.data.managers
 
-import android.util.Log
 import com.gkd.data.common.CallErrors
 import com.gkd.data.common.DataResult
+import com.gkd.data.common.PATH_CHARACTER
 import com.gkd.data.common.applyCommonSideEffects
 import com.gkd.data.services.CharacterService
 import com.gkd.domain.dto.toModel
@@ -15,11 +15,11 @@ import javax.inject.Inject
 /**
  * Created by Rim Gazzah on 8/28/20.
  **/
-class CharactersRepositoryImpl @Inject constructor(private val characterApi: CharacterService) :
+class CharactersRepositoryImpl @Inject constructor(
+    private val characterApi: CharacterService
+) :
     CharactersRepository {
-    init {
-        Log.e("Chat","CharactersRepository implementing...")
-    }
+
 
     override fun getAllCharacters(): Flow<DataResult<List<Persona>>> = flow {
         characterApi.getAllCharacters().run {
@@ -53,5 +53,3 @@ class CharactersRepositoryImpl @Inject constructor(private val characterApi: Cha
         emit(DataResult.Error(CallErrors.ErrorException(it)))
     }
 }
-
-//TODO : GET RESPONSE GENERIC FUNCTION

@@ -15,9 +15,9 @@ abstract class BaseActivity<
         STATE : ViewState,
         VM : BaseViewModel<INTENT, ACTION, STATE>,
         Binding : ViewBinding?>(
-    modelClass: Class<VM>, open val bindingFactory: (LayoutInflater) -> Binding
-) :
-    AppCompatActivity(), IViewRenderer<STATE> {
+    modelClass: Class<VM>,
+    open val bindingFactory: (LayoutInflater) -> Binding
+) : AppCompatActivity(), IViewRenderer<STATE> {
 
     private var _b: Binding? = null
     val b get() = _b!!
@@ -25,23 +25,20 @@ abstract class BaseActivity<
     private lateinit var viewState: STATE
     val mState get() = viewState
 
-    private val viewModel: VM by lazy {
+    val viewModel: VM by lazy {
         ViewModelProvider(this).get(modelClass.kotlin.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         _b = bindingFactory(layoutInflater)
         setContentView(_b!!.root)
 
         initUI()
-
         viewModel.state.observe(this) {
             viewState = it
             render(it)
         }
-
         initDATA()
         initEVENT()
     }

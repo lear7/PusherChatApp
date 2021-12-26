@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gkd.projectx.App
-import com.gkd.projectx.R
+import com.gkd.data.db.ObjectBox
 import com.gkd.data.model.Message
 import com.gkd.data.model.Sent
+import com.gkd.data.services.ChatService
+import com.gkd.projectx.App
+import com.gkd.projectx.R
 import com.gkd.projectx.adapter.MessageAdapter
 import com.gkd.projectx.databinding.FragmentChatBinding
-import com.gkd.data.db.ObjectBox
 import com.gkd.projectx.ext.asMessage
-import com.gkd.data.services.ChatService
 import com.google.gson.Gson
 import com.pusher.client.Pusher
 import com.pusher.client.PusherOptions
@@ -31,7 +31,6 @@ import com.pusher.client.connection.ConnectionStateChange
 import com.pusher.client.util.HttpAuthorizer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -126,7 +125,7 @@ class ChatFragment : Fragment() {
     }
 
     fun doInBatch(time: Long = 10, process: (channel: String) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             channelList.forEach {
                 process(it)
                 delay(time)
@@ -200,42 +199,46 @@ class ChatFragment : Fragment() {
                     )
                 )
             )
-        val call = chatService.delivered(body)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    onMessageDelivered(response)
-                } else {
-                    onMessageDeliverFailed(Throwable("response failed."))
+        lifecycleScope.launch(Dispatchers.IO) {
+            val call = chatService.delivered(body)
+            call.enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        onMessageDelivered(response)
+                    } else {
+                        onMessageDeliverFailed(Throwable("response failed."))
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                onMessageDeliverFailed(t)
-            }
-        })
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    onMessageDeliverFailed(t)
+                }
+            })
+        }
     }
 
     private fun sendMessage(message: Message) {
         val body: RequestBody =
             RequestBody.create(MediaType.parse("application/json"), Gson().toJson(message))
-        val call = chatService.postMessage(body)
 
-        call.enqueue(object : Callback<Sent> {
-            override fun onResponse(call: Call<Sent>, response: Response<Sent>) {
-                if (response.isSuccessful) {
-                    resetInput()
-                    onMessageSent(response)
-                } else {
-                    onMessageSendFailed(Throwable("response failed."))
+        lifecycleScope.launch(Dispatchers.IO) {
+            val call = chatService.postMessage(body)
+            call.enqueue(object : Callback<Sent> {
+                override fun onResponse(call: Call<Sent>, response: Response<Sent>) {
+                    if (response.isSuccessful) {
+                        resetInput()
+                        onMessageSent(response)
+                    } else {
+                        onMessageSendFailed(Throwable("response failed."))
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Sent>, t: Throwable) {
-                onMessageSendFailed(t)
-            }
-        })
+                override fun onFailure(call: Call<Sent>, t: Throwable) {
+                    onMessageSendFailed(t)
+                }
+            })
+        }
     }
 
     private fun onMessageDelivered(response: Response<Void>) {
@@ -288,7 +291,7 @@ class ChatFragment : Fragment() {
                         notifyServer(
                             message.channelName ?: "",
                             message.eventName ?: "",
-                            message.msgId ?: ""
+                            message.msgId
                         )
                     }
                 }

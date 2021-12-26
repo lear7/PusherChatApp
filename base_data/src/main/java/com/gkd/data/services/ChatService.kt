@@ -8,8 +8,8 @@ import retrofit2.http.POST
 
 interface ChatService {
     @POST("message")
-    fun postMessage(@Body message: RequestBody): Call<Sent>
+    suspend fun postMessage(@Body message: RequestBody): Call<Sent>
 
     @POST("delivered")
-    fun delivered(@Body messageList: RequestBody): Call<Void>
+    suspend fun delivered(@Body messageList: RequestBody): Call<Void>
 }

@@ -19,12 +19,14 @@ object Vers {
     const val navigation_view = "2.3.5"
     const val recyclerview = "1.2.0"
     const val retrofit = "2.4.0"
+    const val stetho = "1.5.1"
     const val pusher = "1.8.0"
     const val swipe_refreshlayout = "1.1.0"
 }
 
 object Deps {
     const val app_compat = "androidx.appcompat:appcompat:${Vers.app_compat}"
+    const val android_annotation = "androidx.annotation:annotation:${Vers.app_compat}"
     const val core_ktx = "androidx.core:core-ktx:${Vers.core_ktx}"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:${Vers.fragment}"
 
@@ -48,8 +50,12 @@ object Deps {
 
     // retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:${Vers.retrofit}"
+    const val retrofit_adapter = "com.squareup.retrofit2:adapter-rxjava2:${Vers.retrofit}"
     const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Vers.retrofit}"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Vers.retrofit}"
+
+    // Stetho
+    const val stetho = "com.facebook.stetho:stetho-okhttp3:${Vers.stetho}"
 
     // Jetpack
     const val lifecycle = "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle}"
@@ -87,7 +93,7 @@ object Deps {
 
     const val hilt_jetpack = "androidx.hilt:hilt-lifecycle-viewmodel:${Vers.hilt_jetpack}"
     const val hilt_jetpack_kapt = "androidx.hilt:hilt-compiler:${Vers.hilt_jetpack}"
-    
+
     // Coroutines
     const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Vers.kotlin}"
     const val coroutines_android =

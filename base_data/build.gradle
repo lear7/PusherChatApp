@@ -40,7 +40,6 @@ dependencies {
     implementation Deps.app_compat
     api Deps.fragment_ktx
 
-
     // hilt
     api Deps.hilt
     kapt Deps.hilt_kapt
@@ -50,8 +49,12 @@ dependencies {
     kapt Deps.hilt_jetpack_kapt
 
     // retrofit
-    implementation Deps.retrofit
-    implementation Deps.retrofit_moshi
+    api Deps.retrofit
+    api Deps.retrofit_adapter
+    api Deps.retrofit_moshi
+
+    // chrome debug
+    api Deps.stetho
 
     // Coroutines
     implementation Deps.coroutines_android

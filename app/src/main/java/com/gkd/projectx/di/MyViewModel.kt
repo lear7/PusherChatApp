@@ -8,9 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    init {
-        Log.d(App.TAG, "MyViewModel created $this")
-    }
 
     fun doWork() {
         repository.doRepositoryWork()

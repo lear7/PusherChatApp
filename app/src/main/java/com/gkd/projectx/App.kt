@@ -10,6 +10,8 @@ class App : Application() {
     companion object {
         val TAG = "ChatActivity"
 
+        val API_BASE_URL = "https://rickandmortyapi.com/api/"
+
         lateinit var fromUser: String
         lateinit var toUser: String
 

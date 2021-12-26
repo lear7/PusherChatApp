@@ -18,7 +18,6 @@ class GasEngine @Inject constructor() : Engine {
     override fun shutdown() {
         Log.d(App.TAG, "Gas engine shutdown.")
     }
-
 }
 
 class ElectricEngine @Inject constructor() : Engine {

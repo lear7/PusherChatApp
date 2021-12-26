@@ -1,7 +1,9 @@
 package com.gkd.projectx.main
 
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.gkd.projectx.App
 import com.gkd.projectx.common.BaseActivity
 import com.gkd.projectx.databinding.ActivityMainBinding
 import com.gkd.projectx.ext.getMessage
@@ -57,7 +59,10 @@ class MainActivity :
                 // other logic ...
             }
             is MainState.Exception -> {
-                b.homeMessage.text = state.callErrors.getMessage(this)
+                state.callErrors.getMessage(this).let {
+                    b.homeMessage.text = it
+                    Log.e(App.TAG,state.callErrors.toString())
+                }
             }
         }
     }

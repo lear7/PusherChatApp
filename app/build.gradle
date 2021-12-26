@@ -4,9 +4,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     // id 'com.google.gms.google-services'
     id 'kotlin-android'
-//    id 'kotlin-kapt'
-//    id 'dagger.hilt.android.plugin'
-//    id 'io.objectbox'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'io.objectbox'
 }
 
 import com.build.config.Deps
@@ -59,9 +59,9 @@ android {
     buildFeatures {
         viewBinding true
     }
-//    kapt {
-//        generateStubs = false
-//    }
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -80,9 +80,9 @@ dependencies {
     implementation Deps.pusher
     implementation Deps.pusher_notification
 
-    // retrofit
-    implementation Deps.retrofit
-    implementation Deps.retrofit_moshi
+//    // retrofit
+//    implementation Deps.retrofit
+//    implementation Deps.retrofit_moshi
 
     // Jetpack
     implementation Deps.lifecycle
@@ -90,13 +90,13 @@ dependencies {
     implementation Deps.lifecycle_viewmodel
     implementation Deps.lifecycle_livedata
 
-//    // hilt
-//    implementation Deps.hilt
-//    kapt Deps.hilt_kapt
-//
-//    // mvvm hilt
-//    implementation Deps.hilt_jetpack
-//    kapt Deps.hilt_jetpack_kapt
+    // hilt
+    implementation Deps.hilt
+    kapt Deps.hilt_kapt
+
+    // mvvm hilt
+    implementation Deps.hilt_jetpack
+    kapt Deps.hilt_jetpack_kapt
 
     // Coroutines
     implementation Deps.coroutines_android
