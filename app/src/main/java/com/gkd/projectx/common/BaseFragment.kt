@@ -28,7 +28,7 @@ abstract class BaseFragment<
     val mState get() = viewState
 
     val viewModel: VM by lazy {
-        ViewModelProvider(this).get(modelClass.kotlin.java)
+        ViewModelProvider(requireActivity()).get(modelClass.kotlin.java)
     }
 
     override fun onCreateView(

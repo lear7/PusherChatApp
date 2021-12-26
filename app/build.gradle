@@ -65,12 +65,13 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(Libs.lib_data)
 
-    implementation Deps.core_ktx
     implementation Deps.app_compat
+    implementation Deps.core_ktx
+    implementation Deps.constraint_layout
     implementation Deps.navigation_ui
     implementation Deps.navigation_fragment
     implementation Deps.material
-    implementation Deps.constraint_layout
+    implementation Deps.fragment_ktx
     implementation Deps.recyclerview
 
     // pusher

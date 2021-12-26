@@ -5,14 +5,17 @@ import com.gkd.projectx.common.BaseViewModel
 import com.gkd.projectx.home.home.contract.HomeAction
 import com.gkd.projectx.home.home.contract.HomeIntent
 import com.gkd.projectx.home.home.contract.HomeState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 /**
  * Created by Rim Gazzah on 8/26/20.
  **/
+@HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: CharactersRepository) :
     BaseViewModel<HomeIntent, HomeAction, HomeState>() {
+
     override fun intentToAction(intent: HomeIntent): HomeAction {
         return when (intent) {
             is HomeIntent.LoadAllCharacters -> HomeAction.AllCharacters
