@@ -38,7 +38,6 @@ dependencies {
     implementation Deps.stdlib
     implementation Deps.core_ktx
     implementation Deps.app_compat
-    api Deps.fragment_ktx
 
     // hilt
     api Deps.hilt
@@ -50,15 +49,14 @@ dependencies {
 
     // retrofit
     api Deps.retrofit
-    api Deps.retrofit_adapter
-    api Deps.retrofit_moshi
+    api Deps.retrofit_gson
 
     // chrome debug
     api Deps.stetho
 
     // Coroutines
-    implementation Deps.coroutines_android
-    implementation Deps.coroutines_core
-    implementation Deps.kotlinx_serialization
+    api Deps.coroutines_android
+    api Deps.coroutines_core
+    api Deps.kotlinx_serialization
 
 }

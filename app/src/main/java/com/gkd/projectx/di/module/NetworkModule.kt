@@ -1,9 +1,9 @@
 package com.gkd.projectx.di.module
 
 import android.content.Context
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.gkd.data.services.CharacterService
 import com.gkd.data.services.ChatService
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -32,12 +32,12 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(cache: Cache): OkHttpClient {
-       return OkHttpClient.Builder()
-           .connectTimeout(10, TimeUnit.SECONDS)
+        return OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-            .cache(cache)
-            .addNetworkInterceptor(StethoInterceptor())
+//            .cache(cache)
+//            .addNetworkInterceptor(StethoInterceptor())
             .build()
     }
 
@@ -47,7 +47,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
 //            .addConverterFactory(MoshiConverterFactory.create())
-            .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+            .addConverterFactory((GsonConverterFactory.create()))
 //            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
@@ -56,7 +56,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesChatService(retrofit: Retrofit): ChatService {
-        return retrofit.create(ChatService::class.java)
+         return retrofit.create(ChatService::class.java)
     }
 
     @Singleton

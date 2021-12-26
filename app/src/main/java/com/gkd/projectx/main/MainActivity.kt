@@ -3,6 +3,8 @@ package com.gkd.projectx.main
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
+import com.gkd.data.services.CharacterService
 import com.gkd.projectx.App
 import com.gkd.projectx.common.BaseActivity
 import com.gkd.projectx.databinding.ActivityMainBinding
@@ -10,6 +12,10 @@ import com.gkd.projectx.ext.getMessage
 import com.gkd.projectx.ext.runIfTrue
 import com.gkd.projectx.main.ui.CharactersAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity :
@@ -63,6 +69,25 @@ class MainActivity :
                     b.homeMessage.text = it
                     Log.e(App.TAG,state.callErrors.toString())
                 }
+            }
+        }
+    }
+
+    @Inject
+    lateinit var apiService: CharacterService
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch(Dispatchers.IO) {
+            Log.e(App.TAG,"hello")
+            var response = retrofit.create(CharacterService::class.java).getAllCharacters()
+            if (response.isSuccessful) {
+                Log.e(App.TAG, "response success")
+            } else {
+                Log.e(App.TAG, "response not success")
             }
         }
     }

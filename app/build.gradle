@@ -6,7 +6,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'io.objectbox'
+//    id 'io.objectbox'
 }
 
 import com.build.config.Deps
@@ -59,9 +59,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-    kapt {
-        generateStubs = true
-    }
 }
 
 dependencies {
@@ -80,27 +77,11 @@ dependencies {
     implementation Deps.pusher
     implementation Deps.pusher_notification
 
-//    // retrofit
-//    implementation Deps.retrofit
-//    implementation Deps.retrofit_moshi
-
     // Jetpack
     implementation Deps.lifecycle
     implementation Deps.lifecycle_scope
     implementation Deps.lifecycle_viewmodel
     implementation Deps.lifecycle_livedata
-
-    // hilt
-    implementation Deps.hilt
-    kapt Deps.hilt_kapt
-
-    // mvvm hilt
-    implementation Deps.hilt_jetpack
-    kapt Deps.hilt_jetpack_kapt
-
-    // Coroutines
-    implementation Deps.coroutines_android
-    implementation Deps.coroutines_core
 
     // flowbinding
     implementation Deps.flow_binding
@@ -116,4 +97,16 @@ dependencies {
 //    implementation Deps.firebase_message
 //    implementation Deps.firebase_analytics
 //    implementation Deps.firebase_iid
+
+//    // Coroutines
+//    implementation Deps.coroutines_android
+//    implementation Deps.coroutines_core
+
+    // hilt
+    implementation Deps.hilt
+    kapt Deps.hilt_kapt
+
+    // mvvm hilt
+    implementation Deps.hilt_jetpack
+    kapt Deps.hilt_jetpack_kapt
 }

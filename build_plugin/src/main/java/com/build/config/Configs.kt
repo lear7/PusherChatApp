@@ -18,7 +18,7 @@ object Vers {
     const val hilt_jetpack = "1.0.0-alpha03"
     const val navigation_view = "2.3.5"
     const val recyclerview = "1.2.0"
-    const val retrofit = "2.4.0"
+    const val retrofit = "2.9.0"
     const val stetho = "1.5.1"
     const val pusher = "1.8.0"
     const val swipe_refreshlayout = "1.1.0"
@@ -50,9 +50,9 @@ object Deps {
 
     // retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:${Vers.retrofit}"
+    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Vers.retrofit}"
     const val retrofit_adapter = "com.squareup.retrofit2:adapter-rxjava2:${Vers.retrofit}"
     const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:${Vers.retrofit}"
-    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Vers.retrofit}"
 
     // Stetho
     const val stetho = "com.facebook.stetho:stetho-okhttp3:${Vers.stetho}"

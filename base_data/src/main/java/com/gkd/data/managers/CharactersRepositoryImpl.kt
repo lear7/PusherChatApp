@@ -2,7 +2,6 @@ package com.gkd.data.managers
 
 import com.gkd.data.common.CallErrors
 import com.gkd.data.common.DataResult
-import com.gkd.data.common.PATH_CHARACTER
 import com.gkd.data.common.applyCommonSideEffects
 import com.gkd.data.services.CharacterService
 import com.gkd.domain.dto.toModel
@@ -10,16 +9,12 @@ import com.gkd.domain.entities.Persona
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 /**
  * Created by Rim Gazzah on 8/28/20.
  **/
-class CharactersRepositoryImpl @Inject constructor(
-    private val characterApi: CharacterService
-) :
+class CharactersRepositoryImpl constructor(private val characterApi: CharacterService) :
     CharactersRepository {
-
 
     override fun getAllCharacters(): Flow<DataResult<List<Persona>>> = flow {
         characterApi.getAllCharacters().run {
