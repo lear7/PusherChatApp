@@ -1,0 +1,66 @@
+plugins {
+    id 'com.build.config'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "com.lear.demo_app_hilt"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+import com.build.config.Deps
+import com.build.config.Libs
+
+dependencies {
+    implementation Deps.stdlib
+    implementation Deps.app_compat
+    implementation Deps.core_ktx
+    implementation Deps.constraint_layout
+    implementation Deps.navigation_ui
+    implementation Deps.navigation_fragment
+    implementation Deps.material
+    implementation Deps.fragment_ktx
+    implementation Deps.recyclerview
+
+    // retrofit
+    api Deps.retrofit
+    api Deps.retrofit_gson
+
+    // chrome debug
+    api Deps.stetho
+
+    // hilt
+    implementation Deps.hilt
+    kapt Deps.hilt_kapt
+
+    // mvvm hilt
+    implementation Deps.hilt_jetpack
+    kapt Deps.hilt_jetpack_kapt
+}

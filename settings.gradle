@@ -14,10 +14,12 @@
 //    }
 //}
 
+rootProject.name = "BBYY2"
 
-rootProject.name = "ChatDemo"
-
-include ':app'
-include ':base_data'
-include ':base_domain'
 includeBuild 'build_plugin'
+include ':app'
+include ':lib_core_data'
+include ':lib_core_domain'
+include ':demo_app_mvi'
+include ':demo_app_hilt'
+include ':lib_chat'

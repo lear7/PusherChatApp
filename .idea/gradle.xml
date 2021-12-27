@@ -22,9 +22,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/base_data" />
-            <option value="$PROJECT_DIR$/base_domain" />
             <option value="$PROJECT_DIR$/build_plugin" />
+            <option value="$PROJECT_DIR$/demo_app_hilt" />
+            <option value="$PROJECT_DIR$/demo_app_mvi" />
+            <option value="$PROJECT_DIR$/lib_chat" />
+            <option value="$PROJECT_DIR$/lib_core_data" />
+            <option value="$PROJECT_DIR$/lib_core_domain" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

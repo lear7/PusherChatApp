@@ -11,9 +11,13 @@
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/fragment_events.xml" value="0.11628901239846089" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2677083333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/item_character.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/item_received_message.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/item_sent_message.xml" value="0.45" />
@@ -21,6 +25,14 @@
         <entry key="app/src/main/res/layout/other_message.xml" value="0.2015625" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/menu/menu_chat_detail.xml" value="0.2359375" />
+        <entry key="demo_app_hilt/src/main/res/layout/activity_main.xml" value="0.1953125" />
+        <entry key="demo_app_mvi/src/main/res/layout/activity_home.xml" value="0.209375" />
+        <entry key="demo_app_mvi/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="demo_app_mvi/src/main/res/layout/fragment_home.xml" value="0.21302083333333333" />
+        <entry key="lib_chat/src/main/res/drawable/other_message_bubble.xml" value="0.2455" />
+        <entry key="lib_chat/src/main/res/layout/fragment_chat.xml" value="0.26927083333333335" />
+        <entry key="lib_chat/src/main/res/layout/item_received_message.xml" value="0.26927083333333335" />
+        <entry key="lib_chat/src/main/res/menu/menu_chat_detail.xml" value="0.26927083333333335" />
       </map>
     </option>
   </component>

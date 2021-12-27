@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    tools:context="com.gkd.projectx.main.MainActivity">
+    tools:context=".welcome.SplashActivity">
 
     <View
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="登录"
+        android:text="Login"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@id/username"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,10 +38,35 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         android:hint="用户名"
         android:inputType="text"
         android:maxLines="1"
-        android:text="lear" />
+        android:visibility="gone" />
+
+    <RadioGroup
+        android:id="@+id/radio_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/user_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="user1" />
+
+        <RadioButton
+            android:id="@+id/user_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="user2" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/channelCount"
@@ -51,6 +76,7 @@
         android:inputType="number"
         android:maxLines="1"
         android:text="1"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/btnLogin"
         app:layout_constraintTop_toBottomOf="@id/loginLabel" />
 
@@ -58,26 +84,24 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="加入" />
+        android:layout_gravity="center"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:text="Join" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="4" />
 
     <RadioGroup
         android:id="@+id/radio_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="节点"
-            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radio_area_1"

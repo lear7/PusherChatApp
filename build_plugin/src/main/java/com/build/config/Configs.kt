@@ -116,6 +116,7 @@ object Deps {
 }
 
 object Libs {
-    const val lib_data = ":base_data"
-    const val lib_domain = ":base_domain"
+    const val lib_core_data = ":lib_core_data"
+    const val lib_core_domain = ":lib_core_domain"
+    const val lib_chat = ":lib_chat"
 }

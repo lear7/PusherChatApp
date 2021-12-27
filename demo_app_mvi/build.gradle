@@ -1,0 +1,89 @@
+plugins {
+    id 'com.build.config'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+import com.build.config.Deps
+import com.build.config.Libs
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "com.gkd.demo_app_mvi"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation Deps.app_compat
+    implementation Deps.core_ktx
+    implementation Deps.constraint_layout
+    implementation Deps.navigation_ui
+    implementation Deps.navigation_fragment
+    implementation Deps.material
+    implementation Deps.fragment_ktx
+    implementation Deps.recyclerview
+
+    // retrofit
+    api Deps.retrofit
+    api Deps.retrofit_gson
+
+    // chrome debug
+    api Deps.stetho
+
+    // Coroutines
+    api Deps.coroutines_android
+    api Deps.coroutines_core
+    api Deps.kotlinx_serialization
+
+    // Jetpack
+    implementation Deps.lifecycle
+    implementation Deps.lifecycle_scope
+    implementation Deps.lifecycle_viewmodel
+    implementation Deps.lifecycle_livedata
+
+    // flowbinding
+    implementation Deps.flow_binding
+    implementation Deps.flow_activity
+    implementation Deps.flow_appcompat
+    implementation Deps.flow_viewpager2
+    implementation Deps.flow_material
+
+    // image
+    implementation Deps.coil
+
+    // hilt
+    implementation Deps.hilt
+    kapt Deps.hilt_kapt
+
+    // mvvm hilt
+    implementation Deps.hilt_jetpack
+    kapt Deps.hilt_jetpack_kapt
+}

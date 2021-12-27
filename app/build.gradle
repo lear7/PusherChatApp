@@ -2,11 +2,10 @@ plugins {
     id 'com.build.config'
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    // id 'com.google.gms.google-services'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-//    id 'io.objectbox'
+    id 'io.objectbox'
 }
 
 import com.build.config.Deps
@@ -14,7 +13,6 @@ import com.build.config.Libs
 
 android {
     compileSdk buildVers.compile_sdk
-//    buildToolsVersion buildVers.build_tool
 
     defaultConfig {
         applicationId "com.gkd.projectx"
@@ -63,7 +61,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(Libs.lib_data)
+    implementation project(Libs.lib_core_data)
+    implementation project(Libs.lib_chat)
 
     implementation Deps.app_compat
     implementation Deps.core_ktx
@@ -93,15 +92,6 @@ dependencies {
 
     // image
     implementation Deps.coil
-
-//    implementation platform(Deps.firebase)
-//    implementation Deps.firebase_message
-//    implementation Deps.firebase_analytics
-//    implementation Deps.firebase_iid
-
-//    // Coroutines
-//    implementation Deps.coroutines_android
-//    implementation Deps.coroutines_core
 
     // hilt
     implementation Deps.hilt
