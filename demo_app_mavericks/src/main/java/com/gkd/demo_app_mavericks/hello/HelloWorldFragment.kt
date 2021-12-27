@@ -27,6 +27,8 @@ class HelloWorldFragment : Fragment(R.layout.fragment_hello_world), MavericksVie
         return binding.root
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -34,8 +36,6 @@ class HelloWorldFragment : Fragment(R.layout.fragment_hello_world), MavericksVie
 
     override fun invalidate() = withState(viewModel) { state ->
         binding.textValue.text = state.title
-        // Update your views with the latest state here.
-        // This will get called any time your state changes and the viewLifecycleOwner is STARTED.
     }
 
 }
