@@ -16,10 +16,14 @@
 
 rootProject.name = "BBYY2"
 
-includeBuild 'build_plugin'
 include ':app'
+
+includeBuild 'build_plugin'
+
 include ':lib_core_data'
 include ':lib_core_domain'
+include ':lib_chat'
+
 include ':demo_app_mvi'
 include ':demo_app_hilt'
-include ':lib_chat'
+include ':demo_app_mavericks'

@@ -1,0 +1,50 @@
+plugins {
+    id 'com.build.config'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+
+import com.build.config.Deps
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "com.gkd.demo_app_mavericks"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation Deps.app_compat
+    implementation Deps.core_ktx
+    implementation Deps.constraint_layout
+    implementation Deps.material
+    implementation Deps.fragment_ktx
+    implementation Deps.recyclerview
+
+    implementation Deps.marvericks
+}

@@ -17,7 +17,6 @@ import javax.inject.Inject
 class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
-
     private val binding get() = _binding!!
 
     @Inject

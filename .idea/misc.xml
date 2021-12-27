@@ -26,6 +26,8 @@
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.28489583333333335" />
         <entry key="app/src/main/res/menu/menu_chat_detail.xml" value="0.2359375" />
         <entry key="demo_app_hilt/src/main/res/layout/activity_main.xml" value="0.1953125" />
+        <entry key="demo_app_mavericks/src/main/res/layout/activity_main.xml" value="0.22530996152201796" />
+        <entry key="demo_app_mavericks/src/main/res/layout/hello_world_fragment.xml" value="0.22530996152201796" />
         <entry key="demo_app_mvi/src/main/res/layout/activity_home.xml" value="0.209375" />
         <entry key="demo_app_mvi/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="demo_app_mvi/src/main/res/layout/fragment_home.xml" value="0.21302083333333333" />

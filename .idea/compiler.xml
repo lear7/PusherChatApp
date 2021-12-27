@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.8">
       <module name="BBYY2.app" target="11" />
       <module name="BBYY2.demo_app_hilt" target="11" />
+      <module name="BBYY2.demo_app_mavericks" target="11" />
       <module name="BBYY2.demo_app_mvi" target="11" />
       <module name="BBYY2.lib_chat" target="11" />
       <module name="BBYY2.lib_core_data" target="11" />

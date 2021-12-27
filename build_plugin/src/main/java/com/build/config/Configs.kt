@@ -15,6 +15,7 @@ object Vers {
     const val kotlin_serialization = "1.3.2"
     const val lifecycle = "2.3.0-rc01"
     const val material = "1.4.0"
+    const val mavericks = "2.5.1"
     const val hilt_jetpack = "1.0.0-alpha03"
     const val navigation_view = "2.3.5"
     const val recyclerview = "1.2.0"
@@ -102,6 +103,7 @@ object Deps {
     const val kotlinx_serialization =
         "org.jetbrains.kotlinx:kotlinx-serialization-core:${Vers.kotlin_serialization}"
 
+    // image
     const val coil = "io.coil-kt:coil:${Vers.coil}"
 
     // Import the BoM for the Firebase platform
@@ -112,6 +114,9 @@ object Deps {
     const val firebase_message = "com.google.firebase:firebase-messaging-ktx"
     const val firebase_analytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebase_iid = "com.google.firebase:firebase-iid"
+
+    // airbnb mvi
+    const val marvericks = "com.airbnb.android:mavericks:${Vers.mavericks}"
 
 }
 
